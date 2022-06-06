@@ -1,0 +1,95 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collegify/shared/components/constants.dart';
+import 'package:collegify/shared/components/loadingWidget.dart';
+import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+
+class ParentListViewScreen extends StatefulWidget {
+  const ParentListViewScreen({
+    Key key,
+  }) : super(key: key);
+  @override
+  _ParentListViewScreenState createState() => _ParentListViewScreenState();
+}
+
+class _ParentListViewScreenState extends State<ParentListViewScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // backgroundColor: HexColor(appPrimaryColour),
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black54, //change your color here
+        ),
+        backgroundColor: Theme.of(context).primaryColorLight,
+        title: HeadingText(
+          alignment: Alignment.centerLeft,
+          text: 'Parent',
+          size: 17.0,
+          color: Theme.of(context).primaryTextTheme.bodyText1.color,
+        ),
+      ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .where('Role', isEqualTo: 'parent')
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting)
+            return Loader(
+                color: Theme.of(context).primaryColor,
+                size: 30.0,
+                spinnerColor: Colors.black54);
+          if (snapshot.hasError) {
+            return HeadingText(
+              text: 'Unknown error occured',
+              size: 17.0,
+              color: Theme.of(context).primaryTextTheme.bodyText1.color,
+            );
+          } else if (snapshot.data.docs.length == 0) {
+            return HeadingText(
+              text: 'No teachers added',
+              size: 17.0,
+              color: Theme.of(context).primaryTextTheme.bodyText1.color,
+            );
+          }
+          List<DecoratedContainer> decoratedContainer = [];
+          for (int i = 0; i < snapshot.data.docs.length; ++i) {
+            DocumentSnapshot documentSnapshot = snapshot.data.docs[i];
+            decoratedContainer.add(
+              DecoratedContainer(
+                child: Column(
+                  children: [
+                    HeadingText(
+                      alignment: Alignment.centerLeft,
+                      text: documentSnapshot.data()['Name'],
+                      size: 15.0,
+                      color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                    ),
+                    HeadingText(
+                      alignment: Alignment.centerLeft,
+                      text: documentSnapshot
+                          .data()['Registration_Number']
+                          .toString(),
+                      size: 13.0,
+                      color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+          return Container(
+            alignment: Alignment.topCenter,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: decoratedContainer,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
