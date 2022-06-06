@@ -1,7 +1,12 @@
+import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collegify/models/user_model.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../shared/components/constants.dart';
 import '../../../shared/components/loadingWidget.dart';
 import 'openImageScreen.dart';
@@ -161,19 +166,48 @@ class _ViewNotesState extends State<ViewNotes> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
       child: Card(
         child: InkWell(
           splashColor: Theme.of(context).colorScheme.secondary,
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
+            padding: const EdgeInsets.all(2.0),
+            child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    _getContentIcon(widget.metadata),
-                    color: Colors.black54,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    width: double.infinity,
+                    child: FutureBuilder(
+                        future: widget.imageUrl,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            if (_getContentype(widget.metadata) ==
+                                'application/pdf')
+                              return CachedNetworkImage(
+                                placeholder: (context, url) => placeholder(),
+                                fit: BoxFit.cover,
+                                imageUrl:
+                                    "https://d1qwl4ymp6qhug.cloudfront.net/blog-media/imported/b35884fc226ea0bc7ffffba816b3b115",
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              );
+
+                            return CachedNetworkImage(
+                              imageUrl: snapshot.data,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => placeholder(),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            );
+                          }
+                          return placeholder();
+                        }),
                   ),
+                  // Icon(
+                  //   _getContentIcon(widget.metadata),
+                  //   color: Colors.black54,
+                  // ),
                   HeadingText(
                     text: widget.imageName,
                     size: 15.0,
@@ -202,29 +236,69 @@ class _ViewNotesState extends State<ViewNotes> {
             // print(_getContentype(widget.metadata));
 
             // await _openPDF(imageUrl);
-
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      _getContentype(widget.metadata) == 'application/pdf'
-                          ? OpenPDfScreen(
-                              documentFile: imageUrl,
-                              pdfName: widget.imageName,
-                              documentPath: widget.imagePath,
-                              path: widget.path)
-                          : OpenImage(
-                              imageUrl: imageUrl,
-                              imageName: widget.imageName,
-                              imagePath: widget.imagePath,
-                              // documentSnapshot: widget.documentSnapshot,
-                              path: widget.path,
-                            )),
-            );
+            await openFile(imageUrl, widget.imageName);
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //       builder: (context) =>
+            //           _getContentype(widget.metadata) == 'application/pdf'
+            //               ? OpenPDfScreen(
+            //                   documentFile: imageUrl,
+            //                   pdfName: widget.imageName,
+            //                   documentPath: widget.imagePath,
+            //                   path: widget.path)
+            //               : OpenImage(
+            //                   imageUrl: imageUrl,
+            //                   imageName: widget.imageName,
+            //                   imagePath: widget.imagePath,
+            //                   // documentSnapshot: widget.documentSnapshot,
+            //                   path: widget.path,
+            //                 )),
+            // );
           },
         ),
       ),
     );
+  }
+
+  placeholder() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300],
+      highlightColor: Colors.grey[100],
+      enabled: true,
+      child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+          ),
+          height: 100.0,
+          width: double.infinity),
+    );
+  }
+
+  Future openFile(String url, String fileName) async {
+    final file = await downloadFile(url, fileName);
+    if (file == null) return;
+
+    OpenFile.open(file.path);
+  }
+
+  Future<File> downloadFile(String url, String name) async {
+    final appStorage = await getApplicationDocumentsDirectory();
+    final file = File('${appStorage.path}/$name');
+    try {
+      final res = await Dio().get(url,
+          options: Options(
+              responseType: ResponseType.bytes,
+              followRedirects: false,
+              receiveTimeout: 0));
+
+      final raf = file.openSync(mode: FileMode.write);
+      raf.writeFromSync(res.data);
+      await raf.close();
+      return file;
+    } catch (e) {
+      return null;
+    }
   }
 
   // Future _openPDF(String url) async {

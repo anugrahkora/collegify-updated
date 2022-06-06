@@ -106,34 +106,34 @@ class _ViewNotesScreenState extends State<ViewNotesScreen> {
     }
   }
 
-  Future<void> _pickVideo() async {
-    try {
-      FilePickerResult result = await FilePicker.platform.pickFiles(
-        type: FileType.video,
-        // allowedExtensions: [
+  // Future<void> _pickVideo() async {
+  //   try {
+  //     FilePickerResult result = await FilePicker.platform.pickFiles(
+  //       type: FileType.video,
+  //       // allowedExtensions: [
 
-        // ],
-      );
+  //       // ],
+  //     );
 
-      if (result != null) {
-        setState(() {
-          _videoFile = result.files.single.path;
-        });
+  //     if (result != null) {
+  //       setState(() {
+  //         _videoFile = result.files.single.path;
+  //       });
 
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => VideoApp(
-                file: _videoFile,
-              ),
-            ));
-      } else {
-        Fluttertoast.showToast(msg: 'No file selected');
-      }
-    } catch (e) {
-      Fluttertoast.showToast(msg: 'No file selected');
-    }
-  }
+  //       Navigator.push(
+  //           context,
+  //           MaterialPageRoute(
+  //             builder: (context) => VideoApp(
+  //               file: _videoFile,
+  //             ),
+  //           ));
+  //     } else {
+  //       Fluttertoast.showToast(msg: 'No file selected');
+  //     }
+  //   } catch (e) {
+  //     Fluttertoast.showToast(msg: 'No file selected');
+  //   }
+  // }
 
   /// Remove image
 

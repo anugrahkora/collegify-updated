@@ -1,9 +1,8 @@
 import 'package:collegify/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'package:get/get.dart'; 
+import 'package:get/get.dart';
 import 'Screens/welcome_screen/get_doc.dart';
 import 'authentication/auth_service.dart';
 import 'models/user_model.dart';
@@ -34,7 +33,7 @@ class InitializeMyapp extends StatelessWidget {
     return StreamProvider<UserModel>.value(
       value: AuthService().user,
       child: GetMaterialApp(
-         theme: lightTheme(context),
+        theme: lightTheme(context),
         darkTheme: darkTheme(context),
         // color: HexColor(appPrimaryColour),
         debugShowCheckedModeBanner: false,

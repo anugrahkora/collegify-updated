@@ -39,16 +39,18 @@ dependencies:
   auto_size_text: ^2.1.0
   flutter_spinkit: ^4.1.2+1
   form_field_validator: ^1.0.1
-  permission_handler: ^7.1.0
+  permission_handler: ^8.1.0
   file_picker: ^3.0.1
   url_launcher: ^6.0.4
   firebase_storage: ^8.0.3
   pinch_zoom: ^0.0.4
-  fluttertoast: ^7.1.8
-  video_player: ^2.1.6
+  fluttertoast: ^8.0.9
   date_time_picker: ^2.0.0
   open_file: ^3.2.1
-  # syncfusion_flutter_pdfviewer: ^20.1.57-beta
+  dio: ^4.0.6
+  path_provider: ^2.0.10
+  cached_network_image: ^3.2.1
+  # syncfusion_flutter_pdfviewer: ^19.1.57-beta
   razorpay_flutter:
     git:
       url: git://github.com/razorpay/razorpay-flutter.git
@@ -57,11 +59,17 @@ dependencies:
   connectivity: ^0.4.2+1
   get: ^4.6.5
   sizer: ^2.0.15
+  flutter_cache_manager: ^3.3.0
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.9.0
+
+dependency_overrides:
+  # fix `packageRoot`compile error for iOS, because `path_provider` is using an old version of `platform`
+  platform: ^3.1.0 # overrides `path_provider`
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
