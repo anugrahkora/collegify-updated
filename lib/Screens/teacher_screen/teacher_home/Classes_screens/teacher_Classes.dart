@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../authentication/auth_service.dart';
+import '../../../../controllers/app_controller.dart';
 import '../../../../database/databaseService.dart';
 import '../../../../models/user_model.dart';
 import '../../../../shared/components/constants.dart';
+import '../../../../shared/components/darkmode_switch.dart';
 import '../../../../shared/components/dropDownList.dart';
 import '../../../../shared/components/loadingWidget.dart';
 import '../Teacher_Navigation.dart';
@@ -39,17 +40,15 @@ class _TeacherHomeState extends State<TeacherHome> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Your Classes',
-          style: GoogleFonts.poppins(
-              color: Theme.of(context).primaryTextTheme.bodyText1.color, fontSize: 17.0),
+        centerTitle: true,
+        title: HeadingText(
+          alignment: Alignment.centerLeft,
+          text: 'Your Classes',
+          color: Theme.of(context).primaryTextTheme.bodyText1.color,
         ),
-        iconTheme: IconThemeData(
-          color: Colors.black54,
-        ),
-        backgroundColor: Colors.white,
       ),
       drawer: Drawer(
+        backgroundColor: Theme.of(context).primaryColor,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -58,9 +57,14 @@ class _TeacherHomeState extends State<TeacherHome> {
                 padding: const EdgeInsets.all(15.0),
                 child: ImageIcon(
                   AssetImage('assets/icons/iconTeacherLarge.png'),
-                  color: Colors.black54,
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .selectedItemColor,
                   size: 10.0,
                 ),
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorLight,
               ),
             ),
             Padding(
@@ -80,6 +84,21 @@ class _TeacherHomeState extends State<TeacherHome> {
               width: size.width,
               height: size.height * 0.3,
               child: Container(child: buildStreamBuilder()),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              child: ListTile(
+                tileColor: Theme.of(context).primaryColorLight,
+                // selectedTileColor: HexColor(appSecondaryColour),
+                trailing: darkModeSwitch(context),
+                title: HeadingText(
+                  alignment: Alignment.center,
+                  text: 'Darkmode',
+                  color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                  size: 14.0,
+                ),
+              ),
             ),
             Padding(
               padding:
@@ -170,7 +189,10 @@ class _TeacherHomeState extends State<TeacherHome> {
                             child: HeadingText(
                               fontWeight: FontWeight.w400,
                               alignment: Alignment.topLeft,
-                              color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyText1
+                                  .color,
                               text: documentSnapshot
                                       .data()['Course']
                                       .replaceAll('_', ' ') ??
@@ -183,7 +205,10 @@ class _TeacherHomeState extends State<TeacherHome> {
                             child: Center(
                                 child: Icon(
                               Icons.more_vert,
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: Theme.of(context)
+                                  .buttonTheme
+                                  .colorScheme
+                                  .primary,
                             )),
                             itemBuilder: (context) {
                               return List.generate(1, (i) {
@@ -192,7 +217,10 @@ class _TeacherHomeState extends State<TeacherHome> {
                                     child: HeadingText(
                                       // fontWeight: FontWeight.w500,
                                       alignment: Alignment.topLeft,
-                                      color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                                      color: Theme.of(context)
+                                          .primaryTextTheme
+                                          .bodyText1
+                                          .color,
                                       text: 'Delete',
                                       size: 15,
                                     ),
@@ -229,7 +257,10 @@ class _TeacherHomeState extends State<TeacherHome> {
                           HeadingText(
                             fontWeight: FontWeight.w300,
                             alignment: Alignment.topLeft,
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                             text: documentSnapshot
                                     .data()['ClassName']
                                     .replaceAll('_', ' ') ??
@@ -241,7 +272,10 @@ class _TeacherHomeState extends State<TeacherHome> {
                           ),
                           HeadingText(
                             fontWeight: FontWeight.w300,
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                             text: 's ' + documentSnapshot.data()['Semester'],
                             size: 15,
                           ),
@@ -311,8 +345,8 @@ class _TeacherHomeState extends State<TeacherHome> {
             text: 'No admin Announcements',
             size: 17,
           );
-        } else
-          print(snapshot.data);
+        } 
+         
         return ListView.builder(
             itemCount: snapshot.data.docs.length,
             itemBuilder: (BuildContext context, index) {
@@ -324,12 +358,18 @@ class _TeacherHomeState extends State<TeacherHome> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         HeadingText(
-                          color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                           text: snapshot.data.docs[index]['Title'] ?? '---',
                           size: 15,
                         ),
                         HeadingText(
-                          color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                           text: snapshot.data.docs[index]['Date'] ?? '---',
                           size: 13,
                         ),
@@ -351,7 +391,7 @@ class _TeacherHomeState extends State<TeacherHome> {
 
   Widget buildDrawerWidgets(UserModel user) {
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Container(
@@ -360,7 +400,7 @@ class _TeacherHomeState extends State<TeacherHome> {
               HeadingText(
                 alignment: Alignment.centerLeft,
                 text: widget.teacherModel.name ?? '...',
-                color: Colors.black54,
+                color: Theme.of(context).primaryTextTheme.bodyText1.color,
                 size: 17.0,
               ),
               Container(
@@ -371,7 +411,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                     alignment: Alignment.centerLeft,
                     text: user.email,
                     size: 15.0,
-                    color: Colors.black54,
+                    color: Theme.of(context).primaryTextTheme.bodyText1.color,
                   ),
                 ),
               ),
@@ -379,7 +419,7 @@ class _TeacherHomeState extends State<TeacherHome> {
                 alignment: Alignment.centerLeft,
                 text: widget.teacherModel.department.replaceAll('_', ' ') ??
                     '...',
-                color: Colors.black54,
+                color: Theme.of(context).primaryTextTheme.bodyText1.color,
                 size: 15.0,
               ),
             ],
@@ -391,31 +431,34 @@ class _TeacherHomeState extends State<TeacherHome> {
 
   showSignOutAlertDialog(BuildContext buildcontext) {
     Widget cancelButton = TextButton(
-      child: Text(
-        "Cancel",
-        style: TextStyle(color: Colors.black54),
+      style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all(Theme.of(context).primaryColorLight)),
+      child: HeadingText(
+        text: "Cancel",
+        color: Theme.of(context).primaryTextTheme.bodyText1.color,
       ),
       onPressed: () {
-        Navigator.pop(buildcontext);
+        Navigator.pop(context);
       },
     );
     Widget continueButton = TextButton(
-      child: Text(
-        "Continue",
-        style: TextStyle(color: Colors.black54),
-      ),
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(
+              Theme.of(context).colorScheme.secondary)),
+      child: HeadingText(text: "Continue", color: Colors.white),
       onPressed: () async {
         await _authService.signOut();
-        Navigator.pop(context);
+        Navigator.pop(buildcontext);
       },
     );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      // backgroundColor: HexColor(appPrimaryColour),
-      title: Text(
-        "Sign out?",
-        style: TextStyle(color: Colors.black),
+      backgroundColor: Theme.of(context).primaryColor,
+      title: HeadingText(
+        text: "Sign out?",
+        color: Theme.of(context).primaryTextTheme.bodyText1.color,
       ),
       // content: Text(
       //     ""),
@@ -459,7 +502,7 @@ class _OpenPopupDialogueState extends State<OpenPopupDialogue> {
       title: HeadingText(
         text: 'Add Class',
         size: 17.0,
-        color: Colors.black54,
+        color: Theme.of(context).primaryTextTheme.bodyText1.color,
       ),
       backgroundColor: Theme.of(context).primaryColorLight,
       content: Container(
@@ -506,7 +549,8 @@ class _OpenPopupDialogueState extends State<OpenPopupDialogue> {
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Loader(
-                  spinnerColor: Colors.black54,
+                  spinnerColor:
+                      Theme.of(context).primaryTextTheme.bodyText1.color,
                   color: Theme.of(context).primaryColorLight,
                   size: 24.0,
                 ),

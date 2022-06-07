@@ -24,15 +24,14 @@ class _StudentExamViewState extends State<StudentExamView> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.black54, //change your color here
-          ),
-          backgroundColor: Theme.of(context).primaryColorLight,
+          // iconTheme: IconThemeData(
+          //   color: Colors.black54, //change your color here
+          // ),
+          // backgroundColor: Theme.of(context).primaryColorLight,
           title: HeadingText(
-            alignment: Alignment.topLeft,
-            text: 'Exams',
-            color:Theme.of(context).primaryTextTheme.bodyText1.color
-          ),
+              alignment: Alignment.topLeft,
+              text: 'Exams',
+              color: Theme.of(context).primaryTextTheme.bodyText1.color),
         ),
         // backgroundColor: HexColor(appPrimaryColour),
         body: SafeArea(
@@ -49,7 +48,6 @@ class _StudentExamViewState extends State<StudentExamView> {
                 .collection('Exams')
                 .snapshots(),
             builder: (context, snapshot) {
-            
               if (!snapshot.hasData) {
                 return Loader(
                   size: 20.0,
@@ -58,11 +56,10 @@ class _StudentExamViewState extends State<StudentExamView> {
               }
               if (snapshot.data.docs.length == 0) {
                 return HeadingText(
-                  // fontWeight: FontWeight.w500,
-                  text: 'No Exams yet',
-                  size: 17.0,
-                  color:Theme.of(context).primaryTextTheme.bodyText1.color
-                );
+                    // fontWeight: FontWeight.w500,
+                    text: 'No Exams yet',
+                    size: 17.0,
+                    color: Theme.of(context).primaryTextTheme.bodyText1.color);
               }
               if (snapshot.hasError) {
                 return HeadingText(
@@ -119,35 +116,42 @@ class _StudentExamViewState extends State<StudentExamView> {
                         Row(
                           children: [
                             HeadingText(
-                              // alignment: Alignment.centerRight,
-                              text: 'From' +
-                                  ' ' +
-                                  snapshot.data.docs[index]['From'],
-                              size: 15.0,
-                              color:Theme.of(context).primaryTextTheme.bodyText1.color
-                            ),
+                                // alignment: Alignment.centerRight,
+                                text: 'From' +
+                                    ' ' +
+                                    snapshot.data.docs[index]['From'],
+                                size: 15.0,
+                                color: Theme.of(context)
+                                    .primaryTextTheme
+                                    .bodyText1
+                                    .color),
                             SizedBox(
                               width: 20.0,
                             ),
                             HeadingText(
-                              // alignment: Alignment.centerRight,
-                              text:
-                                  'To' + ' ' + snapshot.data.docs[index]['To'],
-                              size: 15.0,
-                              color:Theme.of(context).primaryTextTheme.bodyText1.color
-                            ),
+                                // alignment: Alignment.centerRight,
+                                text: 'To' +
+                                    ' ' +
+                                    snapshot.data.docs[index]['To'],
+                                size: 15.0,
+                                color: Theme.of(context)
+                                    .primaryTextTheme
+                                    .bodyText1
+                                    .color),
                           ],
                         ),
                         SizedBox(
                           height: 10.0,
                         ),
                         HeadingText(
-                          alignment: Alignment.centerLeft,
-                          text: 'Total Marks ' +
-                              snapshot.data.docs[index]['TotalMarks'],
-                          size: 15.0,
-                          color:Theme.of(context).primaryTextTheme.bodyText1.color
-                        ),
+                            alignment: Alignment.centerLeft,
+                            text: 'Total Marks ' +
+                                snapshot.data.docs[index]['TotalMarks'],
+                            size: 15.0,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color),
 
                         // GetMarks(
                         //     examName: snapshot.data.docs[index]['ExamName'],
@@ -158,11 +162,13 @@ class _StudentExamViewState extends State<StudentExamView> {
                           height: 10.0,
                         ),
                         HeadingText(
-                          alignment: Alignment.centerLeft,
-                          text: snapshot.data.docs[index]['ExamName'],
-                          size: 17.0,
-                          color:Theme.of(context).primaryTextTheme.bodyText1.color
-                        ),
+                            alignment: Alignment.centerLeft,
+                            text: snapshot.data.docs[index]['ExamName'],
+                            size: 17.0,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color),
                         SizedBox(
                           height: 10.0,
                         ),
@@ -172,11 +178,13 @@ class _StudentExamViewState extends State<StudentExamView> {
                           color: Colors.black,
                         ),
                         HeadingText(
-                          alignment: Alignment.centerLeft,
-                          text: 'Important Notes',
-                          size: 13.0,
-                          color:Theme.of(context).primaryTextTheme.bodyText1.color
-                        ),
+                            alignment: Alignment.centerLeft,
+                            text: 'Important Notes',
+                            size: 13.0,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color),
                         SizedBox(
                           height: 5.0,
                         ),
@@ -231,20 +239,18 @@ class _StudentExamViewState extends State<StudentExamView> {
           return Column(
             children: [
               HeadingText(
-                alignment: Alignment.centerLeft,
-                text: snapshot.data.data()['Answer'] ?? '---',
-                size: 13.0,
-                color:Theme.of(context).primaryTextTheme.bodyText1.color
-              ),
+                  alignment: Alignment.centerLeft,
+                  text: snapshot.data.data()['Answer'] ?? '---',
+                  size: 13.0,
+                  color: Theme.of(context).primaryTextTheme.bodyText1.color),
               SizedBox(
                 height: 10.0,
               ),
               HeadingText(
-                alignment: Alignment.centerLeft,
-                text: 'Marks' + ' ' + snapshot.data.data()['Marks'] ?? '---',
-                size: 15.0,
-                color:Theme.of(context).primaryTextTheme.bodyText1.color
-              ),
+                  alignment: Alignment.centerLeft,
+                  text: 'Marks' + ' ' + snapshot.data.data()['Marks'] ?? '---',
+                  size: 15.0,
+                  color: Theme.of(context).primaryTextTheme.bodyText1.color),
             ],
           );
         });

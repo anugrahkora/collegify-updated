@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:collegify/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
-// import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../../../shared/components/constants.dart';
 import 'select_file_screen.dart';
@@ -36,12 +35,11 @@ class _ViewPdfState extends State<ViewPdf> {
     return Scaffold(
       backgroundColor: Colors.black54,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black54),
-        backgroundColor: Theme.of(context).primaryColorLight,
+        
         title: HeadingText(
           alignment: Alignment.topLeft,
           text: 'Upload PDF',
-          color: Colors.black54,
+          color: Theme.of(context).primaryTextTheme.bodyText1.color
         ),
         actions: [
           UploaderDocument(
@@ -53,7 +51,7 @@ class _ViewPdfState extends State<ViewPdf> {
               moduleName: widget.moduleName),
         ],
       ),
-      // body: Container(child: SfPdfViewer.file(widget.documentFile)),
+      body: Container(child: SfPdfViewer.file(widget.documentFile)),
     );
   }
 }

@@ -88,11 +88,9 @@ class _StudentAttendanceState extends State<StudentAttendance> {
               padding: const EdgeInsets.all(15.0),
               child: ImageIcon(
                 AssetImage('assets/icons/iconStudent.png'),
-                color: Colors.black54,
               ),
             ),
             centerTitle: true,
-            backgroundColor: Colors.white,
             title: HeadingText(
               text: dateTime.toString().substring(0, 11),
               size: 17.0,
@@ -102,7 +100,6 @@ class _StudentAttendanceState extends State<StudentAttendance> {
               IconButton(
                   icon: Icon(
                     Icons.edit,
-                    color: Colors.black54,
                   ),
                   onPressed: () {
                     selectDate(context);
@@ -152,7 +149,7 @@ class ListSwitchTileSelect extends StatefulWidget {
     Key key,
     this.name,
     this.dateTime,
-   @required this.teacherModel,
+    @required this.teacherModel,
     this.courseName,
     this.className,
     this.semester,
@@ -189,7 +186,9 @@ class _ListSwitchTileSelectState extends State<ListSwitchTileSelect> {
                 child: Center(
                     child: Icon(
                   Icons.more_vert,
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .selectedItemColor,
                 )),
                 itemBuilder: (context) {
                   return List.generate(1, (i) {
@@ -198,7 +197,10 @@ class _ListSwitchTileSelectState extends State<ListSwitchTileSelect> {
                           child: HeadingText(
                             // fontWeight: FontWeight.w500,
                             alignment: Alignment.topLeft,
-                            color: Colors.black54,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                             text: 'More',
                             size: 15,
                           ),
@@ -214,7 +216,7 @@ class _ListSwitchTileSelectState extends State<ListSwitchTileSelect> {
                                   studentRollNumber: widget.rollNumber,
                                   studentUID: widget.studentUID,
                                   studentName: widget.name,
-                                 teacherModel: widget.teacherModel,
+                                  teacherModel: widget.teacherModel,
                                   className: widget.className,
                                   courseName: widget.courseName,
                                   semester: widget.semester,
@@ -253,7 +255,6 @@ class _ListSwitchTileSelectState extends State<ListSwitchTileSelect> {
                       onPressed: () async {
                         dynamic result =
                             await _databaseService.markAttendanceAbsent(
-                               
                                 widget.teacherModel.department,
                                 widget.courseName,
                                 widget.className,
@@ -303,7 +304,6 @@ class _ListSwitchTileSelectState extends State<ListSwitchTileSelect> {
                       onPressed: () async {
                         dynamic result =
                             await _databaseService.markAttendancePresent(
-                         
                           widget.teacherModel.department,
                           widget.courseName,
                           widget.className,

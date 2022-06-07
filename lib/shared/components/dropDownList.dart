@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 import 'constants.dart';
 import 'loadingWidget.dart';
@@ -42,7 +41,7 @@ class _DropDownListForDepartmentNameState
       height: 58.0,
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).highlightColor, width: 2.0),
-        color: Colors.white,
+        color: Theme.of(context).primaryColorLight,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: StreamBuilder<QuerySnapshot>(
@@ -64,11 +63,10 @@ class _DropDownListForDepartmentNameState
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: HeadingText(
-                      text: documentSnapshot.id.replaceAll('_', ' '),
-                      size: 13,
-                      color:
-                            Theme.of(context).primaryTextTheme.bodyText1.color
-                    ),
+                        text: documentSnapshot.id.replaceAll('_', ' '),
+                        size: 13,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color),
                   ),
                 ),
                 value: "${documentSnapshot.id}",
@@ -78,6 +76,10 @@ class _DropDownListForDepartmentNameState
 
           return DropdownButtonHideUnderline(
             child: DropdownButton(
+              dropdownColor: Theme.of(context).primaryColorLight,
+              iconEnabledColor:
+                  Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+              iconDisabledColor: Theme.of(context).highlightColor,
               elevation: 0,
               hint: HeadingText(
                 text: widget.hintText,
@@ -133,7 +135,7 @@ class _DropDownListForCourseNamesState
       height: 58.0,
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).highlightColor, width: 2.0),
-        color: Colors.white,
+        color: Theme.of(context).primaryColorLight,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: StreamBuilder<QuerySnapshot>(
@@ -173,6 +175,10 @@ class _DropDownListForCourseNamesState
 
           return DropdownButtonHideUnderline(
             child: DropdownButton(
+              dropdownColor: Theme.of(context).primaryColorLight,
+              iconEnabledColor:
+                  Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+              iconDisabledColor: Theme.of(context).highlightColor,
               elevation: 16,
               hint: HeadingText(
                 text: widget.hintText,
@@ -214,7 +220,7 @@ class _DropDownListState extends State<DropDownList> {
       width: size.width * 0.8,
       height: 58.0,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).primaryColorLight,
         borderRadius: BorderRadius.circular(29),
       ),
       child: DropdownButtonHideUnderline(
@@ -276,7 +282,7 @@ class _DropDownListForYearDataState extends State<DropDownListForYearData> {
       height: 58.0,
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).highlightColor, width: 2.0),
-        color: Colors.white,
+        color: Theme.of(context).primaryColorLight,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: StreamBuilder<QuerySnapshot>(
@@ -314,6 +320,10 @@ class _DropDownListForYearDataState extends State<DropDownListForYearData> {
 
           return DropdownButtonHideUnderline(
             child: DropdownButton(
+              dropdownColor: Theme.of(context).primaryColorLight,
+              iconEnabledColor:
+                  Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+              iconDisabledColor: Theme.of(context).highlightColor,
               elevation: 16,
               hint: HeadingText(
                 text: widget.hintText,

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collegify/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 import '../../../shared/components/constants.dart';
 import '../../../shared/components/loadingWidget.dart';
@@ -27,7 +26,7 @@ class _WardAttendanceStatusState extends State<WardAttendanceStatus> {
 
   //     await firebaseFirestore
   //         .collection(college)
-          
+
   //         .doc(widget.wardModel.department)
   //         .collection('CourseNames')
   //         .doc(widget.wardModel.course)
@@ -52,7 +51,6 @@ class _WardAttendanceStatusState extends State<WardAttendanceStatus> {
 
       await firebaseFirestore
           .collection(college)
-         
           .doc(widget.wardModel.department)
           .collection('CourseNames')
           .doc(widget.wardModel.course)
@@ -67,7 +65,7 @@ class _WardAttendanceStatusState extends State<WardAttendanceStatus> {
       });
       return dates.length;
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
+      Fluttertoast.showToast(msg: "errr");
     }
   }
 
@@ -78,9 +76,7 @@ class _WardAttendanceStatusState extends State<WardAttendanceStatus> {
     return Scaffold(
       // backgroundColor: HexColor(appPrimaryColour),
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black54),
         centerTitle: true,
-        backgroundColor: Colors.white,
         title: HeadingText(
           alignment: Alignment.centerLeft,
           text: 'Today' + ' ' + ' ${dateTime.toString().substring(0, 10)} ',
@@ -130,7 +126,7 @@ class _WardAttendanceStatusState extends State<WardAttendanceStatus> {
       itemCount: dates.length,
       itemBuilder: (BuildContext context, index) {
         return StatusCard(
-            studentModel: StudentModel(),
+            studentModel: widget.wardModel,
             className: widget.className,
             // documentSnapshot: widget.documentSnapshot,
             date: dates[index].id,
@@ -180,6 +176,7 @@ class _StatusCardState extends State<StatusCard> {
           .then((snapshot) {
         status = snapshot;
       });
+
       return status.exists;
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
@@ -203,7 +200,10 @@ class _StatusCardState extends State<StatusCard> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(widget.date.replaceAll('_', '-')),
+                    child: HeadingText(
+                      text: widget.date.replaceAll('_', '-'),
+                      color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                    ),
                   ),
                 ],
               ),
@@ -219,20 +219,31 @@ class _StatusCardState extends State<StatusCard> {
                           return Loader(
                               color: Theme.of(context).primaryColorLight,
                               size: 15.0,
-                              spinnerColor: Theme.of(context).primaryTextTheme.bodyText1.color);
-                        } else if (!snapshot.data) {
+                              spinnerColor: Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyText1
+                                  .color);
+                        }
+                        // print(snapshot.data);
+                        else if (!snapshot.data) {
                           return Container(
                             child: HeadingText(
                               text: 'Not Marked',
                               size: 15.0,
-                              color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyText1
+                                  .color,
                             ),
                           );
                         } else if (snapshot.hasError) {
                           return HeadingText(
                             text: 'Unknown error occured',
                             size: 17.0,
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                           );
                         } else if (snapshot.data) {
                           return HeadingText(
@@ -244,7 +255,7 @@ class _StatusCardState extends State<StatusCard> {
                           );
                         }
                         return Loader(
-                            color:Theme.of(context).primaryColor,
+                            color: Theme.of(context).primaryColor,
                             size: 15.0,
                             spinnerColor: Colors.black54);
                       },

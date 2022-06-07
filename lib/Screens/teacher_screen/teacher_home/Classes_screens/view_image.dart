@@ -33,13 +33,10 @@ class _ViewImagesState extends State<ViewImages> {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black54),
-        backgroundColor: Theme.of(context).primaryColorLight,
         title: HeadingText(
-          alignment: Alignment.topLeft,
-          text: "Upload Image",
-          color: Colors.black54,
-        ),
+            alignment: Alignment.topLeft,
+            text: "Upload Image",
+            color: Theme.of(context).primaryTextTheme.bodyText1.color),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

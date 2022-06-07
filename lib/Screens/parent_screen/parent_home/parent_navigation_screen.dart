@@ -4,15 +4,11 @@ import 'package:collegify/shared/components/loadingWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-import '../../../shared/components/constants.dart';
 import 'announcements_from_teacher.dart';
 import 'fee_payment_screen.dart';
 import 'student_classes.dart';
-
-
 
 PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
@@ -58,40 +54,51 @@ class _ParentNavigationScreenState extends State<ParentNavigationScreen> {
       Fluttertoast.showToast(msg: e.toString());
     }
   }
-List<PersistentBottomNavBarItem> _navBarsItems() {
+
+  List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
         icon: Icon(
           CupertinoIcons.book,
-          color: Colors.black,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
         ),
         title: ("Classes"),
-        activeColor: Colors.white,
-        inactiveColor: CupertinoColors.systemGrey,
-        activeContentColor: Theme.of(context).colorScheme.secondary,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(
           CupertinoIcons.bell,
-          color: Colors.black,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
         ),
         title: ("Announcements"),
-        activeColor: Colors.white,
-        inactiveColor: CupertinoColors.systemGrey,
-        activeContentColor: Theme.of(context).colorScheme.secondary,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(
           CupertinoIcons.money_dollar,
-          color: Colors.black,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
         ),
         title: ("Fee"),
-        activeColor: Colors.white,
-        inactiveColor: CupertinoColors.systemGrey,
-        activeContentColor: Theme.of(context).colorScheme.secondary,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
     ];
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(

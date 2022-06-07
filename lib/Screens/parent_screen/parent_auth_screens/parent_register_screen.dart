@@ -3,7 +3,6 @@ import 'package:collegify/authentication/auth_service.dart';
 import 'package:collegify/shared/components/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class ParentRegisterScreen extends StatefulWidget {
   @override
@@ -50,7 +49,9 @@ class _ParentRegisterScreenState extends State<ParentRegisterScreen> {
                   child: Center(
                     child: ImageIcon(
                       AssetImage('assets/icons/iconParentLarge.png'),
-                      color: Colors.black54,
+                      color: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .selectedItemColor,
                       size: 70,
                     ),
                   ),
@@ -233,7 +234,7 @@ class _ParentRegisterScreenState extends State<ParentRegisterScreen> {
                 RoundedButton(
                   text: 'Register as Parent',
                   onPressed: registerParent,
-                  color:Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).colorScheme.secondary,
                   loading: _loading,
                   textColor: Colors.white,
                 ),

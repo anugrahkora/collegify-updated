@@ -39,10 +39,6 @@ class _StudentModulesScreenState extends State<StudentModulesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        backgroundColor: Theme.of(context).primaryColorLight,
         title: HeadingText(
           alignment: Alignment.topLeft,
           text: widget.className,
@@ -55,7 +51,6 @@ class _StudentModulesScreenState extends State<StudentModulesScreen> {
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('myCollege')
-             
               .doc(widget.studentModel.department)
               .collection('CourseNames')
               .doc(widget.courseName)
@@ -94,7 +89,7 @@ class _StudentModulesScreenState extends State<StudentModulesScreen> {
                       Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(
                           builder: (context) => StudentNotes(
-                            studentModel: widget.studentModel,
+                              studentModel: widget.studentModel,
                               // documentSnapshot: widget.documentSnapshot,
                               className: widget.className,
                               courseName: widget.courseName,
@@ -107,7 +102,10 @@ class _StudentModulesScreenState extends State<StudentModulesScreen> {
                         HeadingText(
                           // fontWeight: FontWeight.w500,
                           alignment: Alignment.centerLeft,
-                          color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                           text: snapshot.data.docs[index]['Module'],
                           size: 17,
                         ),
@@ -116,7 +114,10 @@ class _StudentModulesScreenState extends State<StudentModulesScreen> {
                         ),
                         HeadingText(
                           alignment: Alignment.centerLeft,
-                          color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                           text: snapshot.data.docs[index]['Description'],
                           size: 15,
                         ),

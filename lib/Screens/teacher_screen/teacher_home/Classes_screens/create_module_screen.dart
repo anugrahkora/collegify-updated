@@ -43,13 +43,9 @@ class _CreateModuleScreenState extends State<CreateModuleScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        backgroundColor: Colors.white,
-        title: Text(
-          '${widget.className}',
-          style: GoogleFonts.poppins(color: Colors.black54, fontSize: 17.0),
+        title: HeadingText(
+          text: '${widget.className}',
+          color: Theme.of(context).primaryTextTheme.bodyText1.color,
         ),
       ),
       // backgroundColor: HexColor(appPrimaryColour),
@@ -116,7 +112,9 @@ class _CreateModuleScreenState extends State<CreateModuleScreen> {
                               child: Center(
                                   child: Icon(
                                 Icons.more_vert,
-                                color: Theme.of(context).colorScheme.secondary,
+                                color: Theme.of(context)
+                                    .bottomNavigationBarTheme
+                                    .selectedItemColor,
                               )),
                               itemBuilder: (context) {
                                 return List.generate(1, (i) {
@@ -159,7 +157,10 @@ class _CreateModuleScreenState extends State<CreateModuleScreen> {
                         HeadingText(
                           alignment: Alignment.centerLeft,
                           // fontWeight: FontWeight.w300,
-                          color: Colors.black54,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                           text: documentSnapshot.data()['Description'],
                           size: 15,
                         ),
@@ -259,7 +260,7 @@ class _OpenPopupDialogueState extends State<OpenPopupDialogue> {
       title: HeadingText(
         text: 'Add Module',
         size: 17.0,
-        color: Colors.black54,
+        color: Theme.of(context).primaryTextTheme.bodyText1.color,
       ),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       content: Form(
@@ -297,6 +298,9 @@ class _OpenPopupDialogueState extends State<OpenPopupDialogue> {
             : IconButton(
                 icon: Icon(
                   Icons.done,
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .selectedItemColor,
                 ),
                 onPressed: () async {
                   if (_formkey.currentState.validate() &&
@@ -307,7 +311,6 @@ class _OpenPopupDialogueState extends State<OpenPopupDialogue> {
                     try {
                       dynamic docExists =
                           await _databaseService.checkIfModuleExists(
-                      
                         widget.teacherModel.department,
                         widget.courseName,
                         widget.semester,
@@ -316,8 +319,7 @@ class _OpenPopupDialogueState extends State<OpenPopupDialogue> {
                       );
                       if (!docExists) {
                         dynamic result = await _databaseService.addModule(
-                           
-                             widget.teacherModel.department,
+                            widget.teacherModel.department,
                             widget.courseName,
                             widget.semester,
                             widget.className,

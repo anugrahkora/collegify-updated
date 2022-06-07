@@ -42,14 +42,9 @@ class _ExamViewScreenState extends State<ExamViewScreen> {
               })
         ],
         centerTitle: true,
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        backgroundColor: Colors.white,
-        title: Text(
-          'Exams',
-          style: GoogleFonts.poppins(
-              color:Theme.of(context).primaryTextTheme.bodyText1.color, fontSize: 17.0),
+        title: HeadingText(
+          text: 'Exams',
+          color: Theme.of(context).primaryTextTheme.bodyText1.color,
         ),
       ),
       // backgroundColor: HexColor(appPrimaryColour),
@@ -70,7 +65,8 @@ class _ExamViewScreenState extends State<ExamViewScreen> {
             if (!snapshot.hasData) {
               return Loader(
                 size: 20.0,
-                spinnerColor:Theme.of(context).primaryTextTheme.bodyText1.color,
+                spinnerColor:
+                    Theme.of(context).primaryTextTheme.bodyText1.color,
               );
             }
             if (snapshot.data.docs.length == 0) {
@@ -78,7 +74,7 @@ class _ExamViewScreenState extends State<ExamViewScreen> {
                 // fontWeight: FontWeight.w500,
                 text: 'No exams added yet',
                 size: 17.0,
-                color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                color: Theme.of(context).primaryTextTheme.bodyText1.color,
               );
             }
             if (snapshot.hasError) {
@@ -104,7 +100,8 @@ class _ExamViewScreenState extends State<ExamViewScreen> {
                                 documentSnapshot.data()['TotalMarks'] ??
                             '---',
                         size: 13.0,
-                        color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
                       ),
                       Row(
                         children: [
@@ -113,14 +110,20 @@ class _ExamViewScreenState extends State<ExamViewScreen> {
                             text: 'Time ' + documentSnapshot.data()['From'] ??
                                 '---',
                             size: 13.0,
-                            color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                           ),
                           HeadingText(
                             alignment: Alignment.topRight,
                             text:
                                 ' - ' + documentSnapshot.data()['To'] ?? '---',
                             size: 13.0,
-                            color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                           ),
                         ],
                       ),
@@ -131,7 +134,8 @@ class _ExamViewScreenState extends State<ExamViewScreen> {
                         alignment: Alignment.centerLeft,
                         text: documentSnapshot.data()['ExamName'] ?? '---',
                         size: 15.0,
-                        color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
                       ),
                       SizedBox(
                         height: 10.0,
@@ -148,7 +152,8 @@ class _ExamViewScreenState extends State<ExamViewScreen> {
                         alignment: Alignment.centerLeft,
                         text: 'Important Notes',
                         size: 15.0,
-                        color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
                       ),
                       SizedBox(
                         height: 10.0,
@@ -157,7 +162,8 @@ class _ExamViewScreenState extends State<ExamViewScreen> {
                         alignment: Alignment.centerLeft,
                         text: documentSnapshot.data()['Notes'] ?? '--',
                         size: 13.0,
-                        color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
                       ),
                       SizedBox(
                         height: 5.0,

@@ -53,10 +53,9 @@ class _StudentAttendanceState extends State<StudentAttendance> {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        backgroundColor: Theme.of(context).primaryColorLight,
+        // iconTheme: IconThemeData(
+        //   color: Colors.black54, //change your color here
+        // ),
         title: HeadingText(
           alignment: Alignment.centerLeft,
           text: 'Attendance',
@@ -128,7 +127,8 @@ class StatusCard extends StatefulWidget {
     Key key,
     @required this.date,
     @required this.status,
-    @required this.className,@required this.studentModel,
+    @required this.className,
+    @required this.studentModel,
   }) : super(key: key);
   @override
   _StatusCardState createState() => _StatusCardState();
@@ -136,7 +136,7 @@ class StatusCard extends StatefulWidget {
 
 class _StatusCardState extends State<StatusCard> {
   DocumentSnapshot status;
-  Future _getStatus(String date) async {
+  Future<bool> _getStatus(String date) async {
     try {
       FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
@@ -161,6 +161,7 @@ class _StatusCardState extends State<StatusCard> {
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
+    return false;
   }
 
   @override
@@ -180,7 +181,11 @@ class _StatusCardState extends State<StatusCard> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(widget.date.replaceAll('_', '-')),
+                    child: HeadingText(
+                      text: widget.date.replaceAll('_', '-'),
+                      size: 15.0,
+                      color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                    ),
                   ),
                 ],
               ),
@@ -196,20 +201,29 @@ class _StatusCardState extends State<StatusCard> {
                           return Loader(
                               color: Theme.of(context).primaryColorLight,
                               size: 15.0,
-                              spinnerColor: Theme.of(context).primaryTextTheme.bodyText1.color);
+                              spinnerColor: Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyText1
+                                  .color);
                         } else if (!snapshot.data) {
                           return Container(
                             child: HeadingText(
                               text: 'Not Marked',
                               size: 15.0,
-                              color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyText1
+                                  .color,
                             ),
                           );
                         } else if (snapshot.hasError) {
                           return HeadingText(
                             text: 'Unknown error occured',
                             size: 17.0,
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                           );
                         } else if (snapshot.data) {
                           return HeadingText(

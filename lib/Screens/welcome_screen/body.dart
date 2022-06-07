@@ -75,47 +75,58 @@ class _BodyState extends State<Body> {
       PersistentBottomNavBarItem(
         icon: ImageIcon(
           AssetImage('assets/icons/iconLogin.png'),
-          color: Colors.black54,
-          //  HexColor(appSecondaryColour),
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
         ),
         title: ("Login"),
         titleStyle: TextStyle(color: Colors.black54),
-        activeColor: Colors.black12,
-        inactiveColor: CupertinoColors.systemGrey,
-        activeContentColor: Colors.black54,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
       PersistentBottomNavBarItem(
         icon: ImageIcon(
           AssetImage('assets/icons/iconStudent.png'),
-          color: Colors.black54,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
           //  HexColor(appSecondaryColour),
         ),
         title: ("Student"),
-        activeColor: Colors.black12, //HexColor(appSecondaryColour),
-        inactiveColor: CupertinoColors.systemGrey,
-        activeContentColor: Colors.black54,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
       PersistentBottomNavBarItem(
         icon: ImageIcon(
           AssetImage('assets/icons/iconTeacher.png'),
-          color: Colors.black54,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
           //  HexColor(appSecondaryColour),
         ),
         title: ("Teacher"),
-        activeColor: Colors.black12,
-        inactiveColor: CupertinoColors.systemGrey,
-        activeContentColor: Colors.black54,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
       PersistentBottomNavBarItem(
         icon: ImageIcon(
           AssetImage('assets/icons/iconParent.png'),
-          color: Colors.black54,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
           //  HexColor(appSecondaryColour),
         ),
         title: ("Parent"),
-        activeColor: Colors.black12,
-        inactiveColor: CupertinoColors.systemGrey,
-        activeContentColor: Colors.black54,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
     ];
   }

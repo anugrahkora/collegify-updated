@@ -80,7 +80,6 @@ class _StudentAttendanceViewScreenState
   Future<bool> checkAttendance() async {
     var collectionRef = FirebaseFirestore.instance
         .collection(college)
-        
         .doc(widget.teacherModel.department)
         .collection('CourseNames')
         .doc('${widget.courseName}')
@@ -103,7 +102,6 @@ class _StudentAttendanceViewScreenState
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.white,
         title: HeadingText(
           text: ' Attendance registry ' +
               ' ' +
@@ -129,7 +127,6 @@ class _StudentAttendanceViewScreenState
         child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection(college)
-               
                 .doc(widget.teacherModel.department)
                 .collection('CourseNames')
                 .doc('${widget.courseName}')
@@ -171,7 +168,10 @@ class _StudentAttendanceViewScreenState
                     child: Table(
                         defaultColumnWidth: FixedColumnWidth(120.0),
                         border: TableBorder.all(
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                             style: BorderStyle.solid,
                             width: 2),
                         children: [

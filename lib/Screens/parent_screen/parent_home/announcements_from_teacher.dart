@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collegify/models/user_model.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import '../../../shared/components/constants.dart';
 import '../../../shared/components/loadingWidget.dart';
 
@@ -56,11 +55,9 @@ class _AnnouncementFromTeacherState extends State<AnnouncementFromTeacher> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
+        
         centerTitle: true,
-        backgroundColor: Theme.of(context).primaryColorLight,
+
         title: HeadingText(
           text: 'Announcements',
           color: Theme.of(context).primaryTextTheme.bodyText1.color,

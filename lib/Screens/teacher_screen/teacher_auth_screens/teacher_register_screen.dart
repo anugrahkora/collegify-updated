@@ -4,7 +4,6 @@ import 'package:collegify/shared/components/constants.dart';
 import 'package:collegify/shared/components/dropDownList.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class TeacherRegisterScreen extends StatefulWidget {
   @override
@@ -56,7 +55,9 @@ class _TeacherRegisterScreenState extends State<TeacherRegisterScreen> {
                   child: Center(
                     child: ImageIcon(
                       AssetImage('assets/icons/iconTeacherLarge.png'),
-                      color: Colors.black54,
+                      color: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .selectedItemColor,
                       size: 70,
                     ),
                   ),

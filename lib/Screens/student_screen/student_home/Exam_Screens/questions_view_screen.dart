@@ -42,10 +42,10 @@ class _StudentQuestionsViewScreenState
     // Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(
-            color: Colors.black54, //change your color here
-          ),
-          backgroundColor: Theme.of(context).primaryColorLight,
+          // iconTheme: IconThemeData(
+          //   color: Colors.black54, //change your color here
+          // ),
+          // backgroundColor: Theme.of(context).primaryColorLight,
           title: HeadingText(
             alignment: Alignment.topLeft,
             text: 'Questions',

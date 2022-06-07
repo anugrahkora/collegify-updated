@@ -1,6 +1,8 @@
 import 'package:collegify/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'Screens/welcome_screen/get_doc.dart';
@@ -9,14 +11,13 @@ import 'models/user_model.dart';
 import 'shared/components/constants.dart';
 
 void main() async {
-  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //   statusBarIconBrightness: Brightness.dark,
-  //   //systemNavigationBarColor: Colors.blue, // navigation bar color
-  //   statusBarColor: HexColor(appPrimaryColour), // status bar color
-  // ));
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
 
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Hive.initFlutter();
+  await Hive.openBox('darkMode');
   dynamic result = await Firebase.initializeApp();
 
   result != null
@@ -32,13 +33,19 @@ class InitializeMyapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamProvider<UserModel>.value(
       value: AuthService().user,
-      child: GetMaterialApp(
-        theme: lightTheme(context),
-        darkTheme: darkTheme(context),
-        // color: HexColor(appPrimaryColour),
-        debugShowCheckedModeBanner: false,
-        home: GetUserDocument(),
-      ),
+      child: ValueListenableBuilder(
+          valueListenable: Hive.box('darkMode').listenable(),
+          builder: (context, box, widget) {
+            final darkMode = box.get('darkMode', defaultValue: true);
+            return GetMaterialApp(
+              theme: lightTheme(context),
+              darkTheme: darkTheme(context),
+              themeMode: darkMode == true ? ThemeMode.dark : ThemeMode.light,
+              // color: HexColor(appPrimaryColour),
+              debugShowCheckedModeBanner: false,
+              home: GetUserDocument(),
+            );
+          }),
     );
   }
 }

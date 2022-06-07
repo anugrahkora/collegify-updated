@@ -5,15 +5,17 @@ ThemeData lightTheme(BuildContext context) {
   return ThemeData(
       fontFamily: 'Poppins',
       appBarTheme: const AppBarTheme(
+        iconTheme: IconThemeData(
+          color: Colors.black54,
+        ),
         backgroundColor: const Color.fromARGB(255, 240, 241, 242),
         systemOverlayStyle: SystemUiOverlayStyle(
-            // statusBarBrightness: Brightness.light,
-            statusBarIconBrightness: Brightness.dark),
+          statusBarBrightness: Brightness.light,
+        ),
       ),
       scaffoldBackgroundColor: const Color.fromARGB(255, 240, 241, 242),
       primaryColor: const Color.fromARGB(255, 240, 241, 242),
       primaryColorDark: const Color.fromARGB(255, 153, 180, 191),
-     
       highlightColor: const Color.fromARGB(255, 153, 180, 191),
       errorColor: Colors.red,
       focusColor: const Color.fromARGB(255, 34, 92, 115),
@@ -64,10 +66,13 @@ ThemeData darkTheme(BuildContext context) {
   return ThemeData(
       fontFamily: 'Poppins',
       appBarTheme: const AppBarTheme(
+        iconTheme: IconThemeData(
+          color: const Color.fromARGB(255, 235, 235, 235),
+        ),
         backgroundColor: const Color.fromARGB(255, 18, 18, 18),
         systemOverlayStyle: SystemUiOverlayStyle(
-            // statusBarBrightness: Brightness.dark,
-            statusBarIconBrightness: Brightness.light),
+          statusBarBrightness: Brightness.light,
+        ),
       ),
       scaffoldBackgroundColor: const Color.fromARGB(255, 18, 18, 18),
       primaryColor: const Color.fromARGB(255, 18, 18, 18),
@@ -75,8 +80,8 @@ ThemeData darkTheme(BuildContext context) {
           colorScheme: ColorScheme.fromSwatch().copyWith(
         primary: const Color.fromARGB(255, 235, 235, 235),
       )),
-      primaryColorLight: const Color.fromARGB(255, 18, 18, 18),
-      highlightColor: const Color.fromARGB(255, 59, 59, 59),
+      primaryColorLight: const Color.fromARGB(255, 59, 59, 59),
+      highlightColor: const Color.fromARGB(255, 100, 100, 100),
       errorColor: Colors.red,
       focusColor: const Color.fromARGB(255, 235, 235, 235),
       secondaryHeaderColor: Colors.grey[800],
@@ -110,6 +115,6 @@ ThemeData darkTheme(BuildContext context) {
         ),
       ),
       colorScheme: ColorScheme.fromSwatch().copyWith(
-          secondary: const Color.fromARGB(255, 40, 40, 40),
+          secondary: const Color.fromARGB(255, 70, 152, 185),
           brightness: Brightness.light));
 }

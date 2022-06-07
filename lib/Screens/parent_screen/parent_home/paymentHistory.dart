@@ -3,7 +3,6 @@ import 'package:collegify/models/user_model.dart';
 import 'package:collegify/shared/components/constants.dart';
 import 'package:collegify/shared/components/loadingWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class PaymentHistoryScreen extends StatefulWidget {
   final ParentModel parentModel;
@@ -21,15 +20,11 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        backgroundColor: Theme.of(context).primaryColorLight,
         title: HeadingText(
           alignment: Alignment.topLeft,
           text: 'Payment History',
           size: 18.0,
-          color: Colors.black54,
+          color: Theme.of(context).primaryTextTheme.bodyText1.color,
         ),
       ),
       // backgroundColor: HexColor(appPrimaryColour),
@@ -70,13 +65,19 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                           HeadingText(
                             text: 'Semester ' + '${i + 1}',
                             size: 17.0,
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                           ),
                           HeadingText(
                             fontWeight: FontWeight.w500,
                             text: documentSnapshot.data()['Fee'] ?? 'Not added',
                             size: 17.0,
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                           ),
                         ],
                       ),
@@ -111,7 +112,10 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                             alignment: Alignment.centerLeft,
                             text: 'Loading..',
                             size: 17.0,
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                           );
                         },
                       ),

@@ -2,25 +2,21 @@ import 'package:collegify/models/user_model.dart';
 import 'Exam_Screens/exams_view_screen.dart';
 import 'student_attendance.dart';
 import 'student_modules.dart';
-import '../../../shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-
 
 PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
 class StudentNavigationScreen extends StatefulWidget {
-  
   final String className;
   final String courseName;
   final StudentModel studentModel;
   const StudentNavigationScreen(
       {Key key,
-    
       @required this.className,
-      @required this.courseName,@required this.studentModel})
+      @required this.courseName,
+      @required this.studentModel})
       : super(key: key);
   @override
   _StudNavigationScreenState createState() => _StudNavigationScreenState();
@@ -32,32 +28,41 @@ class _StudNavigationScreenState extends State<StudentNavigationScreen> {
       PersistentBottomNavBarItem(
         icon: Icon(
           CupertinoIcons.book,
-          color: Colors.black,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
         ),
         title: ("Notes"),
-        activeColor: Colors.white,
-        inactiveColor: CupertinoColors.systemGrey,
-        activeContentColor: Theme.of(context).colorScheme.secondary,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(
           CupertinoIcons.list_number,
-          color: Colors.black,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
         ),
         title: ("Exams"),
-        activeColor: Colors.white,
-        inactiveColor: CupertinoColors.systemGrey,
-        activeContentColor: Theme.of(context).colorScheme.secondary,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(
           CupertinoIcons.check_mark,
-          color: Colors.black,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
         ),
         title: ("Attendance"),
-        activeColor: Colors.white,
-        inactiveColor: CupertinoColors.systemGrey,
-        activeContentColor: Theme.of(context).colorScheme.secondary,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
     ];
   }
@@ -104,16 +109,13 @@ class _StudNavigationScreenState extends State<StudentNavigationScreen> {
         studentModel: widget.studentModel,
         className: widget.className,
         courseName: widget.courseName,
-       
       ),
       StudentExamView(
         studentModel: widget.studentModel,
-       
         className: widget.className,
       ),
       StudentAttendance(
         studentModel: widget.studentModel,
-       
         className: widget.className,
       ),
     ];

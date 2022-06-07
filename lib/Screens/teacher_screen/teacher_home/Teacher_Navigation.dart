@@ -9,57 +9,6 @@ import 'Attendance_screens/student_attendance_view_screen.dart';
 import 'Classes_screens/create_module_screen.dart';
 import 'Exam_screens/exam_view_scree.dart';
 
-List<PersistentBottomNavBarItem> _navBarsItems() {
-  return [
-    PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.book, color: Colors.black54),
-      title: ("Notes"),
-      activeColor: Colors.white,
-      inactiveColor: CupertinoColors.systemGrey,
-      activeContentColor: Colors.black54,
-    ),
-    PersistentBottomNavBarItem(
-      icon: Icon(
-        CupertinoIcons.list_number,
-        color: Colors.black54,
-      ),
-      title: ("Exams"),
-      activeColor: Colors.white,
-      inactiveColor: CupertinoColors.systemGrey,
-      activeContentColor: Colors.black54,
-    ),
-    PersistentBottomNavBarItem(
-      icon: ImageIcon(
-        AssetImage('assets/icons/iconStudent.png'),
-
-        color: Colors.black54,
-        //  HexColor(appSecondaryColour),
-      ),
-      title: ("Students"),
-      activeColor: Colors.white,
-      inactiveColor: CupertinoColors.systemGrey,
-      activeContentColor: Colors.black54,
-    ),
-    PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.graph_circle, color: Colors.black54),
-      title: ("Attendance"),
-      activeColor: Colors.white,
-      inactiveColor: CupertinoColors.systemGrey,
-      activeContentColor: Colors.black54,
-    ),
-    PersistentBottomNavBarItem(
-      icon: Icon(
-        CupertinoIcons.bell,
-        color: Colors.black54,
-      ),
-      title: ("Memo"),
-      activeColor: Colors.white,
-      inactiveColor: CupertinoColors.systemGrey,
-      activeContentColor: Colors.black54,
-    ),
-  ];
-}
-
 PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
 class TeacherNavigationScreen extends StatefulWidget {
@@ -72,7 +21,8 @@ class TeacherNavigationScreen extends StatefulWidget {
     Key key,
     @required this.className,
     @required this.semester,
-    @required this.courseName,@required this.teacherModel,
+    @required this.courseName,
+    @required this.teacherModel,
   }) : super(key: key);
   @override
   _TeacherNavigationScreenState createState() =>
@@ -80,6 +30,78 @@ class TeacherNavigationScreen extends StatefulWidget {
 }
 
 class _TeacherNavigationScreenState extends State<TeacherNavigationScreen> {
+  List<PersistentBottomNavBarItem> _navBarsItems() {
+    return [
+      PersistentBottomNavBarItem(
+        icon: Icon(
+          CupertinoIcons.book,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        ),
+        title: ("Notes"),
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(
+          CupertinoIcons.list_number,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        ),
+        title: ("Exams"),
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+      ),
+      PersistentBottomNavBarItem(
+        icon: ImageIcon(
+          AssetImage('assets/icons/iconStudent.png'),
+
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+          //  HexColor(appSecondaryColour),
+        ),
+        title: ("Students"),
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(
+          CupertinoIcons.graph_circle,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        ),
+        title: ("Attendance"),
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+      ),
+      PersistentBottomNavBarItem(
+        icon: Icon(
+          CupertinoIcons.bell,
+          color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        ),
+        title: ("Memo"),
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(
@@ -87,7 +109,7 @@ class _TeacherNavigationScreenState extends State<TeacherNavigationScreen> {
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       handleAndroidBackButtonPress: true,
       resizeToAvoidBottomInset:
           true, // This needs to be true if you want to move up the screen when keyboard appears.
@@ -119,13 +141,13 @@ class _TeacherNavigationScreenState extends State<TeacherNavigationScreen> {
   List<Widget> _buildScreens() {
     return [
       CreateModuleScreen(
-   teacherModel: widget.teacherModel,
+        teacherModel: widget.teacherModel,
         className: widget.className,
         semester: widget.semester,
         courseName: widget.courseName,
       ),
       ExamViewScreen(
-       teacherModel: widget.teacherModel,
+        teacherModel: widget.teacherModel,
         className: widget.className,
         courseName: widget.courseName,
         semester: widget.semester,

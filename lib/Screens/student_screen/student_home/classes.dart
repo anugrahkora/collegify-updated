@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../authentication/auth_service.dart';
 import '../../../models/user_model.dart';
 import '../../../shared/components/constants.dart';
+import '../../../shared/components/darkmode_switch.dart';
 import '../../../shared/components/loadingWidget.dart';
 import 'announcements_screen/student_announcements.dart';
 import 'student_navigation.dart';
@@ -37,6 +38,7 @@ class _StudentClassListState extends State<StudentClassList> {
 
     return Scaffold(
       drawer: Drawer(
+        backgroundColor: Theme.of(context).primaryColor,
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
         // space to fit everything.
@@ -49,7 +51,9 @@ class _StudentClassListState extends State<StudentClassList> {
                 children: [
                   ImageIcon(
                     AssetImage('assets/icons/iconStudentLarge.png'),
-                    color: Colors.black54,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .selectedItemColor,
                     size: 90,
                   ),
                   SizedBox(
@@ -61,14 +65,15 @@ class _StudentClassListState extends State<StudentClassList> {
                       child: HeadingText(
                         text: user.email,
                         size: 15.0,
-                        color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
                       ),
                     ),
                   ),
                 ],
               ),
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorLight,
               ),
             ),
             buildPadding(),
@@ -83,8 +88,25 @@ class _StudentClassListState extends State<StudentClassList> {
             ),
             SizedBox(
               width: size.width,
-              height: size.height * 0.4,
-              child: Container(child: buildStreamBuilder()),
+              height: size.height * 0.3,
+              child: Container(
+                  color: Theme.of(context).primaryColor,
+                  child: buildStreamBuilder()),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              child: ListTile(
+                tileColor: Theme.of(context).primaryColorLight,
+                // selectedTileColor: HexColor(appSecondaryColour),
+                trailing: darkModeSwitch(context),
+                title: HeadingText(
+                  alignment: Alignment.center,
+                  text: 'Darkmode',
+                  color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                  size: 14.0,
+                ),
+              ),
             ),
             Padding(
               padding:
@@ -112,11 +134,10 @@ class _StudentClassListState extends State<StudentClassList> {
         ),
       ),
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
+        // iconTheme: IconThemeData(
+        //   color: Theme.of(context).primaryColorLight, //change your color here
+        // ),
         centerTitle: true,
-        backgroundColor: Theme.of(context).primaryColorLight,
         title: HeadingText(
           alignment: Alignment.topLeft,
           text: 'Classes',
@@ -124,6 +145,7 @@ class _StudentClassListState extends State<StudentClassList> {
           size: 17.0,
         ),
         actions: [
+          // darkModeSwitch(context),
           IconButton(
               icon: Icon(Icons.notifications),
               onPressed: () {
@@ -194,7 +216,8 @@ class _StudentClassListState extends State<StudentClassList> {
                       HeadingText(
                         // fontWeight: FontWeight.w500,
                         alignment: Alignment.centerLeft,
-                        color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
                         text: snapshot.data.docs[index].id,
                         size: 17,
                       ),
@@ -203,7 +226,8 @@ class _StudentClassListState extends State<StudentClassList> {
                       ),
                       HeadingText(
                         alignment: Alignment.centerLeft,
-                        color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
                         text: snapshot.data.docs[index]['TeacherName'],
                         size: 15,
                       ),
@@ -259,12 +283,18 @@ class _StudentClassListState extends State<StudentClassList> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           HeadingText(
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                             text: snapshot.data.docs[index]['Title'],
                             size: 15,
                           ),
                           HeadingText(
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                             text: snapshot.data.docs[index]['Date'],
                             size: 13,
                           ),
@@ -272,7 +302,8 @@ class _StudentClassListState extends State<StudentClassList> {
                       ),
                       HeadingText(
                         alignment: Alignment.topLeft,
-                        color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
                         text: snapshot.data.docs[index]['Body'],
                         size: 13,
                       ),
@@ -288,7 +319,7 @@ class _StudentClassListState extends State<StudentClassList> {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Container(
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).primaryColorLight,
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
@@ -375,19 +406,22 @@ class _StudentClassListState extends State<StudentClassList> {
 
   showSignOutAlertDialog(BuildContext buildcontext) {
     Widget cancelButton = TextButton(
-      child: Text(
-        "Cancel",
-        style: TextStyle(color: Colors.black54),
+      style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all(Theme.of(context).primaryColorLight)),
+      child: HeadingText(
+        text: "Cancel",
+        color: Theme.of(context).primaryTextTheme.bodyText1.color,
       ),
       onPressed: () {
         Navigator.pop(context);
       },
     );
     Widget continueButton = TextButton(
-      child: Text(
-        "Continue",
-        style: TextStyle(color: Colors.black54),
-      ),
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(
+              Theme.of(context).colorScheme.secondary)),
+      child: HeadingText(text: "Continue", color: Colors.white),
       onPressed: () async {
         await _authService.signOut();
         Navigator.pop(buildcontext);
@@ -396,10 +430,10 @@ class _StudentClassListState extends State<StudentClassList> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      // backgroundColor: HexColor(appPrimaryColour),
-      title: Text(
-        "Sign out?",
-        style: TextStyle(color: Colors.black),
+      backgroundColor: Theme.of(context).primaryColor,
+      title: HeadingText(
+        text: "Sign out?",
+        color: Theme.of(context).primaryTextTheme.bodyText1.color,
       ),
       // content: Text(
       //     ""),

@@ -233,7 +233,7 @@ class _RoundedButtonState extends State<RoundedButton> {
           onPressed: widget.onPressed,
           child: widget.loading
               ? Loader(
-                  color:Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).colorScheme.secondary,
                   size: 23,
                 )
               : Text(
@@ -301,7 +301,7 @@ class _RoundedButtonExtendedState extends State<RoundedButtonExtended> {
           onPressed: widget.onPressed,
           child: widget.loading
               ? Loader(
-                 color: Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).colorScheme.secondary,
                   size: 27,
                 )
               : Row(
@@ -359,7 +359,6 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
       height: size.height * 0.1,
       width: size.width * 0.8,
       child: TextFormField(
-        
         controller: widget.controller,
         keyboardType: widget.textInputType,
         //  autofocus: true,
@@ -665,11 +664,11 @@ class _DecoratedCardState extends State<DecoratedCard> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Card(
-          color: widget.color,
+          color: Theme.of(context).primaryColorLight,
           margin: EdgeInsets.only(top: 10.0),
           child: Container(
             child: InkWell(
-              splashColor:Theme.of(context).primaryColorDark,
+              splashColor: Theme.of(context).primaryColorDark,
               child: Padding(
                   padding: const EdgeInsets.all(25.0), child: widget.child),
               onTap: widget.onTap,

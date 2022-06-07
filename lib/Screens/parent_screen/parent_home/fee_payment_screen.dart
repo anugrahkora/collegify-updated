@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collegify/Screens/parent_screen/parent_home/paymentHistory.dart';
 import 'package:collegify/database/databaseService.dart';
 import 'package:collegify/models/user_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:json_string/json_string.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -33,7 +31,7 @@ class _FeePaymentScreenState extends State<FeePaymentScreen> {
   bool _loading = false;
   DateTime dateTime = DateTime.now();
   DatabaseService databaseService = new DatabaseService();
- 
+
   // StudentModel wardModel;
   // Future _getWardData() async {
   //   DocumentSnapshot doc;
@@ -70,7 +68,7 @@ class _FeePaymentScreenState extends State<FeePaymentScreen> {
   @override
   void initState() {
     super.initState();
-  
+
     _razorpay = Razorpay();
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
@@ -105,8 +103,9 @@ class _FeePaymentScreenState extends State<FeePaymentScreen> {
   void _handlePaymentSuccess(
     PaymentSuccessResponse response,
   ) async {
-    dynamic result = await DatabaseService(uid: widget.parentModel.uid).addPaymentDetails(
-        _selectedSemester, _fee, dateTime.toString(), 'Paid');
+    dynamic result = await DatabaseService(uid: widget.parentModel.uid)
+        .addPaymentDetails(
+            _selectedSemester, _fee, dateTime.toString(), 'Paid');
     if (result == null)
       Fluttertoast.showToast(
           msg: "SUCCESS: " + response.paymentId, timeInSecForIosWeb: 4);
@@ -152,15 +151,11 @@ class _FeePaymentScreenState extends State<FeePaymentScreen> {
     // _getFee(widget.documentSnapshot.data()['Semester']);
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        backgroundColor: Theme.of(context).primaryColorLight,
         title: HeadingText(
           alignment: Alignment.topLeft,
           text: 'Fee Payment',
           size: 18.0,
-          color: Colors.black54,
+          color: Theme.of(context).primaryTextTheme.bodyText1.color,
         ),
       ),
       // backgroundColor: HexColor(appPrimaryColour),
@@ -181,7 +176,10 @@ class _FeePaymentScreenState extends State<FeePaymentScreen> {
                           alignment: Alignment.centerLeft,
                           text: 'You are paying for :',
                           size: 17.0,
-                          color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                         ),
                         TextButton(
                             onPressed: () {
@@ -231,14 +229,19 @@ class _FeePaymentScreenState extends State<FeePaymentScreen> {
                           if (snapshot.hasData)
                             return Column(
                               children: [
-                                Text(
-                                  ' ₹' + ' ' + snapshot.data,
-                                  style: TextStyle(fontSize: 17.0),
+                                HeadingText(
+                                  text: ' ₹' + ' ' + snapshot.data,
+                                  color: Theme.of(context)
+                                      .primaryTextTheme
+                                      .bodyText1
+                                      .color,
+                                  size: 18.0,
                                 ),
                                 RoundedButton(
                                   loading: _loading,
                                   text: 'Checkout',
-                                  color: Theme.of(context).colorScheme.secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                   onPressed: () {
                                     openCheckout();
                                   },
@@ -246,7 +249,15 @@ class _FeePaymentScreenState extends State<FeePaymentScreen> {
                               ],
                             );
 
-                          return Text('Select Semester');
+                          return HeadingText(
+                            alignment: Alignment.centerLeft,
+                            text: "Select Semester",
+                            size: 15.0,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
+                          );
                         })
                   ],
                 ),

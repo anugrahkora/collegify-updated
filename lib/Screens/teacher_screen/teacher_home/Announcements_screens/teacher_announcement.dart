@@ -56,7 +56,6 @@ class _TeacherAnnouncementScreenState extends State<TeacherAnnouncementScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
           title: HeadingText(
             alignment: Alignment.topLeft,
             text: 'Announcements',
@@ -73,7 +72,9 @@ class _TeacherAnnouncementScreenState extends State<TeacherAnnouncementScreen> {
                 ),
                 icon: ImageIcon(
                   AssetImage('assets/icons/iconStudent.png'),
-                  color: Colors.black54,
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .selectedItemColor,
                 ),
               ),
               Tab(
@@ -84,7 +85,9 @@ class _TeacherAnnouncementScreenState extends State<TeacherAnnouncementScreen> {
                 ),
                 icon: ImageIcon(
                   AssetImage('assets/icons/iconParent.png'),
-                  color: Colors.black54,
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .selectedItemColor,
                 ),
               ),
             ],

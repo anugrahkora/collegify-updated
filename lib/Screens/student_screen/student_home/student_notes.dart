@@ -59,12 +59,7 @@ class _StudentNotesState extends State<StudentNotes> {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        backgroundColor: Theme.of(context).primaryColorLight,
         title: HeadingText(
-          alignment: Alignment.topLeft,
           text: widget.className + '   Module  ' + widget.moduleName,
           color: Theme.of(context).primaryTextTheme.bodyText1.color,
           size: 17.0,
@@ -141,17 +136,17 @@ class _ViewNotesState extends State<ViewNotes> {
   bool _loading = false;
   String contentType;
 
-  IconData _getContentIcon(Future<FullMetadata> fullMetadata) {
-    fullMetadata.then((value) {
-      if (this.mounted)
-        setState(() {
-          contentType = value.contentType;
-        });
-    });
-    return contentType == 'application/pdf'
-        ? Icons.picture_as_pdf
-        : Icons.image;
-  }
+  // IconData _getContentIcon(Future<FullMetadata> fullMetadata) {
+  //   fullMetadata.then((value) {
+  //     if (this.mounted)
+  //       setState(() {
+  //         contentType = value.contentType;
+  //       });
+  //   });
+  //   return contentType == 'application/pdf'
+  //       ? Icons.picture_as_pdf
+  //       : Icons.image;
+  // }
 
   _getContentype(Future<FullMetadata> fullMetadata) {
     fullMetadata.then((value) {
@@ -168,51 +163,73 @@ class _ViewNotesState extends State<ViewNotes> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
       child: Card(
+        color: Theme.of(context).primaryColorLight,
         child: InkWell(
           splashColor: Theme.of(context).colorScheme.secondary,
           child: Padding(
-            padding: const EdgeInsets.all(2.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.15,
                     width: double.infinity,
-                    child: FutureBuilder(
-                        future: widget.imageUrl,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            if (_getContentype(widget.metadata) ==
-                                'application/pdf')
-                              return CachedNetworkImage(
-                                placeholder: (context, url) => placeholder(),
-                                fit: BoxFit.cover,
-                                imageUrl:
-                                    "https://d1qwl4ymp6qhug.cloudfront.net/blog-media/imported/b35884fc226ea0bc7ffffba816b3b115",
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error),
-                              );
-
-                            return CachedNetworkImage(
-                              imageUrl: snapshot.data,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) => placeholder(),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
-                            );
-                          }
-                          return placeholder();
-                        }),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: FutureBuilder(
+                          future: widget.imageUrl,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              if (_getContentype(widget.metadata) ==
+                                  'application/pdf')
+                                return CachedNetworkImage(
+                                  placeholder: (context, url) => placeholder(),
+                                  fit: BoxFit.cover,
+                                  imageUrl:
+                                      "https://d1qwl4ymp6qhug.cloudfront.net/blog-media/imported/b35884fc226ea0bc7ffffba816b3b115",
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                );
+                              else if (_getContentype(widget.metadata) ==
+                                  'image/jpeg')
+                                return CachedNetworkImage(
+                                  imageUrl: snapshot.data,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) => placeholder(),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
+                                );
+                              return placeholder();
+                            }
+                            return placeholder();
+                          }),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 3.0,
                   ),
                   // Icon(
                   //   _getContentIcon(widget.metadata),
                   //   color: Colors.black54,
                   // ),
-                  HeadingText(
-                    text: widget.imageName,
-                    size: 15.0,
-                    color: Colors.black54,
+                  Row(
+                    children: [
+                      HeadingText(
+                        text: "Uploaded on  ",
+                        size: 15.0,
+                        fontWeight: FontWeight.bold,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
+                      ),
+                      HeadingText(
+                        text: widget.imageName,
+                        size: 15.0,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
+                      ),
+                    ],
                   ),
+
                   Container(
                       child: _loading
                           ? Loader(

@@ -55,7 +55,9 @@ class _StudentRegisterScreenState extends State<StudentRegisterScreen> {
                   child: Center(
                     child: ImageIcon(
                       AssetImage('assets/icons/iconStudentLarge.png'),
-                      color: Colors.black54,
+                      color: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .selectedItemColor,
                       size: 70,
                     ),
                   ),

@@ -68,7 +68,7 @@ class _ViewNotesScreenState extends State<ViewNotesScreen> {
         ),
       );
     } catch (e) {
-      Fluttertoast.showToast(msg: 'No file selected');
+      Fluttertoast.showToast(msg: 'Camera failed to launch');
     }
   }
 
@@ -162,14 +162,11 @@ class _ViewNotesScreenState extends State<ViewNotesScreen> {
               })
         ],
         centerTitle: true,
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        backgroundColor: Colors.white,
         title: Text(
           '${widget.className} ' + widget.moduleName,
           style: GoogleFonts.poppins(
-              color: Theme.of(context).primaryTextTheme.bodyText1.color, fontSize: 17.0),
+              color: Theme.of(context).primaryTextTheme.bodyText1.color,
+              fontSize: 17.0),
         ),
       ),
       // backgroundColor: HexColor(appPrimaryColour),
@@ -181,7 +178,8 @@ class _ViewNotesScreenState extends State<ViewNotesScreen> {
               return Loader(
                   color: Theme.of(context).primaryColor,
                   size: 34.0,
-                  spinnerColor: Theme.of(context).primaryTextTheme.bodyText1.color);
+                  spinnerColor:
+                      Theme.of(context).primaryTextTheme.bodyText1.color);
             } else if (snapshot.data == 0) {
               return HeadingText(
                 text: 'No notes',
@@ -224,16 +222,7 @@ class _ViewNotesScreenState extends State<ViewNotesScreen> {
         context: context,
         builder: (context) {
           return Container(
-            color: Color(0xFF737373),
-            child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: const Radius.circular(10.0),
-                        topRight: const Radius.circular(10.0)),
-                    color: Theme.of(context).primaryColor,
-                ),
-                child: types()),
-          );
+              color: Theme.of(context).primaryColor, child: types());
         });
   }
 
@@ -247,11 +236,12 @@ class _ViewNotesScreenState extends State<ViewNotesScreen> {
               icon: Icon(
                 Icons.camera_alt,
                 size: 30.0,
+                color: Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .selectedItemColor,
               ),
               onPressed: () {
-                _pickImage(
-                  ImageSource.camera,
-                );
+                _pickImage(ImageSource.camera);
               }),
         ),
         Padding(
@@ -260,6 +250,9 @@ class _ViewNotesScreenState extends State<ViewNotesScreen> {
               icon: Icon(
                 Icons.photo,
                 size: 30.0,
+                color: Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .selectedItemColor,
               ),
               onPressed: () {
                 _pickImage(
@@ -273,6 +266,9 @@ class _ViewNotesScreenState extends State<ViewNotesScreen> {
               icon: Icon(
                 Icons.picture_as_pdf,
                 size: 30.0,
+                color: Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .selectedItemColor,
               ),
               onPressed: () {
                 _pickFile();
