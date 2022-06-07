@@ -95,7 +95,7 @@ class _DecoratedContainerState extends State<DecoratedContainer> {
                 blurRadius: 6.0,
                 spreadRadius: 0.0),
           ],
-          color: widget.color,
+          color: Theme.of(context).primaryColorLight,
           borderRadius: BorderRadius.circular(8),
         ),
         child: widget.child,

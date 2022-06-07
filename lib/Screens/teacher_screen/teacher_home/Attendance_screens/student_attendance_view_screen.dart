@@ -180,7 +180,13 @@ class _StudentAttendanceViewScreenState
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(documentSnapshot.id),
+                                  child: HeadingText(
+                                    text: documentSnapshot.id,
+                                    color: Theme.of(context)
+                                        .primaryTextTheme
+                                        .bodyText1
+                                        .color,
+                                  ),
                                 ),
                               ],
                             ),
@@ -188,7 +194,13 @@ class _StudentAttendanceViewScreenState
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(documentSnapshot.data()['Name']),
+                                  child: HeadingText(
+                                    text: documentSnapshot.data()['Name'],
+                                    color: Theme.of(context)
+                                        .primaryTextTheme
+                                        .bodyText1
+                                        .color,
+                                  ),
                                 ),
                               ],
                             ),
@@ -196,8 +208,13 @@ class _StudentAttendanceViewScreenState
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child:
-                                      Text(documentSnapshot.data()['Status']),
+                                  child: HeadingText(
+                                    text: documentSnapshot.data()['Status'],
+                                    color: documentSnapshot.data()['Status'] ==
+                                            'Present'
+                                        ? Colors.green
+                                        : Colors.red,
+                                  ),
                                 ),
                               ],
                             ),
@@ -213,17 +230,23 @@ class _StudentAttendanceViewScreenState
                     child: Table(
                         defaultColumnWidth: FixedColumnWidth(120.0),
                         border: TableBorder.all(
-                            color: Colors.black,
+                            color: Theme.of(context)
+                                .bottomNavigationBarTheme
+                                .selectedItemColor,
                             style: BorderStyle.solid,
-                            width: 2),
+                            width: 5),
                         children: [
                           TableRow(children: [
                             Column(
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Roll Number',
+                                  child: HeadingText(
+                                    text: 'Roll Number',
+                                    color: Theme.of(context)
+                                        .primaryTextTheme
+                                        .bodyText1
+                                        .color,
                                   ),
                                 ),
                               ],
@@ -232,8 +255,12 @@ class _StudentAttendanceViewScreenState
                               Container(
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Name',
+                                  child: HeadingText(
+                                    text: 'Name',
+                                    color: Theme.of(context)
+                                        .primaryTextTheme
+                                        .bodyText1
+                                        .color,
                                   ),
                                 ),
                               )
@@ -241,8 +268,12 @@ class _StudentAttendanceViewScreenState
                             Column(children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Status',
+                                child: HeadingText(
+                                  text: 'Status',
+                                  color: Theme.of(context)
+                                      .primaryTextTheme
+                                      .bodyText1
+                                      .color,
                                 ),
                               )
                             ]),

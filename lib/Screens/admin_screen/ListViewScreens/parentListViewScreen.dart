@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collegify/shared/components/constants.dart';
 import 'package:collegify/shared/components/loadingWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class ParentListViewScreen extends StatefulWidget {
   const ParentListViewScreen({
@@ -18,10 +17,6 @@ class _ParentListViewScreenState extends State<ParentListViewScreen> {
     return Scaffold(
       // backgroundColor: HexColor(appPrimaryColour),
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        backgroundColor: Theme.of(context).primaryColorLight,
         title: HeadingText(
           alignment: Alignment.centerLeft,
           text: 'Parent',

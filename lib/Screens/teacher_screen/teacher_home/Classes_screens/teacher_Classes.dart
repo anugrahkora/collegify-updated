@@ -2,11 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../authentication/auth_service.dart';
-import '../../../../controllers/app_controller.dart';
 import '../../../../database/databaseService.dart';
 import '../../../../models/user_model.dart';
 import '../../../../shared/components/constants.dart';
@@ -345,8 +343,8 @@ class _TeacherHomeState extends State<TeacherHome> {
             text: 'No admin Announcements',
             size: 17,
           );
-        } 
-         
+        }
+
         return ListView.builder(
             itemCount: snapshot.data.docs.length,
             itemBuilder: (BuildContext context, index) {
@@ -370,7 +368,11 @@ class _TeacherHomeState extends State<TeacherHome> {
                               .primaryTextTheme
                               .bodyText1
                               .color,
-                          text: snapshot.data.docs[index]['Date'] ?? '---',
+                          text: snapshot.data.docs[index]['Date']
+                                  .toString()
+                                  .substring(0, 10)
+                                  .replaceAll('-', '/') ??
+                              '---',
                           size: 13,
                         ),
                       ],

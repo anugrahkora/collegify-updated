@@ -4,7 +4,6 @@ import 'package:collegify/models/user_model.dart';
 import 'package:collegify/shared/components/constants.dart';
 import 'package:collegify/shared/components/loadingWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class ViewAnswersScreen extends StatefulWidget {
   final TeacherModel teacherModel;
@@ -36,22 +35,17 @@ class _ViewAnswersScreenState extends State<ViewAnswersScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
         title: HeadingText(
           alignment: Alignment.centerLeft,
           text: 'Answers',
           size: 17.0,
-          color:Theme.of(context).primaryTextTheme.bodyText1.color,
+          color: Theme.of(context).primaryTextTheme.bodyText1.color,
         ),
-        backgroundColor: Theme.of(context).primaryColorLight,
       ),
       // backgroundColor: HexColor(appPrimaryColour),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection(college)
-           
             .doc(widget.teacherModel.department)
             .collection('CourseNames')
             .doc('${widget.courseName}')
@@ -77,7 +71,7 @@ class _ViewAnswersScreenState extends State<ViewAnswersScreen> {
               // fontWeight: FontWeight.w500,
               text: 'No Answers yet',
               size: 17.0,
-              color:Theme.of(context).primaryTextTheme.bodyText1.color,
+              color: Theme.of(context).primaryTextTheme.bodyText1.color,
             );
           }
           List<DecoratedCard> decoratedContainer = [];
@@ -96,7 +90,10 @@ class _ViewAnswersScreenState extends State<ViewAnswersScreen> {
                           text:
                               questionDocumentSnapshot.data()['Name'] ?? '---',
                           size: 17.0,
-                          color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                         ),
                         HeadingText(
                           fontWeight: FontWeight.w500,
@@ -106,7 +103,10 @@ class _ViewAnswersScreenState extends State<ViewAnswersScreen> {
                                   .substring(0, 16) ??
                               '---',
                           size: 13.0,
-                          color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                         ),
                       ],
                     ),
@@ -118,20 +118,26 @@ class _ViewAnswersScreenState extends State<ViewAnswersScreen> {
                           // fontWeight: FontWeight.w500,
                           text: questionDocumentSnapshot.id,
                           size: 15.0,
-                          color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                         ),
                         HeadingText(
                           alignment: Alignment.centerRight,
                           text: 'Marks' + ' ' + widget.marks,
                           size: 15.0,
-                          color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                         ),
                       ],
                     ),
                     Container(
                       width: size.width * 0.7,
                       height: 0.5,
-                      color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                      color: Theme.of(context).primaryTextTheme.bodyText1.color,
                     ),
                     Container(
                       child: Padding(
@@ -142,7 +148,10 @@ class _ViewAnswersScreenState extends State<ViewAnswersScreen> {
                           text: questionDocumentSnapshot.data()['Answer'] ??
                               '---',
                           size: 15.0,
-                          color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                         ),
                       ),
                     ),
@@ -171,7 +180,6 @@ class _ViewAnswersScreenState extends State<ViewAnswersScreen> {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection(college)
-         
           .doc(widget.teacherModel.department)
           .collection('CourseNames')
           .doc('${widget.courseName}')
@@ -197,14 +205,14 @@ class _ViewAnswersScreenState extends State<ViewAnswersScreen> {
           return HeadingText(
             text: 'Unknown error',
             size: 20,
-            color:Theme.of(context).primaryTextTheme.bodyText1.color,
+            color: Theme.of(context).primaryTextTheme.bodyText1.color,
           );
         }
         if (snapshot.data['Marks'] == 'Not assigned') {
           return RoundedButton(
             text: 'Assign',
             loading: _loading,
-           color: Theme.of(context).colorScheme.secondary,
+            color: Theme.of(context).colorScheme.secondary,
             onPressed: () {
               showDialog(
                   context: context,
@@ -237,14 +245,14 @@ class _ViewAnswersScreenState extends State<ViewAnswersScreen> {
                   text: 'Assigned mark',
 
                   size: 15.0,
-                  color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                  color: Theme.of(context).primaryTextTheme.bodyText1.color,
                 ),
                 HeadingText(
                   textAlign: TextAlign.right,
                   // alignment: Alignment.centerRight,
                   text: snapshot.data['Marks'],
                   size: 15.0,
-                  color:Theme.of(context).primaryTextTheme.bodyText1.color,
+                  color: Theme.of(context).primaryTextTheme.bodyText1.color,
                 ),
               ],
             ),

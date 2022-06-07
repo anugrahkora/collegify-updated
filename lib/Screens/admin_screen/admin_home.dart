@@ -5,12 +5,12 @@ import 'package:collegify/shared/components/loadingWidget.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 import '../../authentication/auth_service.dart';
 import '../../models/user_model.dart';
 import '../../shared/components/constants.dart';
+import '../../shared/components/darkmode_switch.dart';
 
 class AdminHome extends StatefulWidget {
   final AdminModel adminModel;
@@ -36,10 +36,6 @@ class _AdminHomeState extends State<AdminHome> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        backgroundColor: Theme.of(context).primaryColorLight,
         title: HeadingText(
           alignment: Alignment.centerLeft,
           text: 'Admin Page',
@@ -48,6 +44,7 @@ class _AdminHomeState extends State<AdminHome> {
         ),
       ),
       drawer: Drawer(
+        backgroundColor: Theme.of(context).primaryColor,
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
         // space to fit everything.
@@ -64,7 +61,7 @@ class _AdminHomeState extends State<AdminHome> {
                   //   size: 90,
                   // ),
                   SizedBox(
-                    height: 20.0,
+                    height: 10.0,
                   ),
                   Container(
                     child: SingleChildScrollView(
@@ -72,15 +69,16 @@ class _AdminHomeState extends State<AdminHome> {
                       child: HeadingText(
                         text: user.email,
                         size: 15.0,
-                        color: Colors.black54,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
                       ),
                     ),
                   ),
                 ],
               ),
               decoration: BoxDecoration(
-                // color: HexColor(appPrimaryColour),
-              ),
+                  // color: HexColor(appPrimaryColour),
+                  ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -91,11 +89,41 @@ class _AdminHomeState extends State<AdminHome> {
               height: size.height * 0.4,
               child: Container(child: buildStreamBuilder()),
             ),
-            ListTile(
-              title: Text('Sign Out'),
-              onTap: () async {
-                await _authService.signOut();
-              },
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              child: ListTile(
+                tileColor: Theme.of(context).primaryColorLight,
+                // selectedTileColor: HexColor(appSecondaryColour),
+                trailing: darkModeSwitch(context),
+                title: HeadingText(
+                  alignment: Alignment.center,
+                  text: 'Darkmode',
+                  color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                  size: 14.0,
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+              child: ListTile(
+                tileColor: Theme.of(context).colorScheme.secondary,
+                // selectedTileColor: HexColor(appSecondaryColour),
+                trailing: Icon(
+                  Icons.logout,
+                  color: Colors.white,
+                ),
+                title: HeadingText(
+                  alignment: Alignment.center,
+                  text: 'Sign Out',
+                  color: Colors.white,
+                  size: 14.0,
+                ),
+                onTap: () async {
+                  await _authService.signOut();
+                },
+              ),
             ),
           ],
         ),
@@ -160,12 +188,18 @@ class _AdminHomeState extends State<AdminHome> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           HeadingText(
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                             text: snapshot.data.docs[index]['Title'],
                             size: 15,
                           ),
                           HeadingText(
-                            color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                            color: Theme.of(context)
+                                .primaryTextTheme
+                                .bodyText1
+                                .color,
                             text: snapshot.data.docs[index]['Date']
                                 .toString()
                                 .substring(0, 11),
@@ -175,7 +209,8 @@ class _AdminHomeState extends State<AdminHome> {
                       ),
                       HeadingText(
                         alignment: Alignment.topLeft,
-                        color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                        color:
+                            Theme.of(context).primaryTextTheme.bodyText1.color,
                         text: snapshot.data.docs[index]['Body'],
                         size: 13,
                       ),
@@ -199,12 +234,13 @@ class _AdminHomeState extends State<AdminHome> {
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Container(
+          color: Theme.of(context).primaryColorLight,
           child: Column(
             children: [
               HeadingText(
                 alignment: Alignment.centerLeft,
                 text: widget.adminModel.name ?? '...',
-                color: Colors.black54,
+                color: Theme.of(context).primaryTextTheme.bodyText1.color,
                 size: 17.0,
               ),
               Container(
@@ -215,7 +251,7 @@ class _AdminHomeState extends State<AdminHome> {
                     alignment: Alignment.centerLeft,
                     text: user.email,
                     size: 15.0,
-                    color: Colors.black54,
+                    color: Theme.of(context).primaryTextTheme.bodyText1.color,
                   ),
                 ),
               ),
@@ -223,6 +259,54 @@ class _AdminHomeState extends State<AdminHome> {
           ),
         ),
       ),
+    );
+  }
+
+  showSignOutAlertDialog(BuildContext buildcontext) {
+    Widget cancelButton = TextButton(
+      style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all(Theme.of(context).primaryColorLight)),
+      child: HeadingText(
+        text: "Cancel",
+        color: Theme.of(context).primaryTextTheme.bodyText1.color,
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = TextButton(
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(
+              Theme.of(context).colorScheme.secondary)),
+      child: HeadingText(text: "Continue", color: Colors.white),
+      onPressed: () async {
+        await _authService.signOut();
+        Navigator.pop(buildcontext);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      backgroundColor: Theme.of(context).primaryColor,
+      title: HeadingText(
+        text: "Sign out?",
+        color: Theme.of(context).primaryTextTheme.bodyText1.color,
+      ),
+      // content: Text(
+      //     ""),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

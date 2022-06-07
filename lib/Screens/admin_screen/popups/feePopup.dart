@@ -50,12 +50,13 @@ class _OpenAddFeeDialogState extends State<OpenAddFeeDialog> {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
+          backgroundColor: Theme.of(context).primaryColor,
           title: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: HeadingText(
               text: collegeName,
               size: 15.0,
-              color: Colors.black54,
+              color: Theme.of(context).primaryTextTheme.bodyText1.color,
             ),
           ),
           content: Container(
@@ -169,7 +170,12 @@ class _OpenAddFeeDialogState extends State<OpenAddFeeDialog> {
                     size: 24,
                   )
                 : IconButton(
-                    icon: Icon(Icons.done),
+                    icon: Icon(
+                      Icons.done,
+                      color: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .selectedItemColor,
+                    ),
                     onPressed: () async {
                       if (_formkey.currentState.validate() &&
                           _selectedDepartmentName != null &&

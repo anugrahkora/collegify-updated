@@ -2,13 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collegify/shared/components/constants.dart';
 import 'package:collegify/shared/components/loadingWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class StudentListViewScreen extends StatefulWidget {
-  
-
-  const StudentListViewScreen({Key key, })
-      : super(key: key);
+  const StudentListViewScreen({
+    Key key,
+  }) : super(key: key);
   @override
   _StudentListViewScreenState createState() => _StudentListViewScreenState();
 }
@@ -19,10 +17,6 @@ class _StudentListViewScreenState extends State<StudentListViewScreen> {
     return Scaffold(
       // backgroundColor: HexColor(appPrimaryColour),
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black54, //change your color here
-        ),
-        backgroundColor: Theme.of(context).primaryColorLight,
         title: HeadingText(
           alignment: Alignment.centerLeft,
           text: 'Student',
@@ -33,7 +27,6 @@ class _StudentListViewScreenState extends State<StudentListViewScreen> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('users')
-           
             .where('Role', isEqualTo: 'student')
             .snapshots(),
         builder: (context, snapshot) {
@@ -69,13 +62,19 @@ class _StudentListViewScreenState extends State<StudentListViewScreen> {
                           alignment: Alignment.centerLeft,
                           text: documentSnapshot.data()['Name'],
                           size: 15.0,
-                          color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                         ),
                         HeadingText(
                           alignment: Alignment.centerLeft,
                           text: documentSnapshot.data()['Registration_Number'],
                           size: 15.0,
-                          color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                         ),
                       ],
                     ),
@@ -89,7 +88,10 @@ class _StudentListViewScreenState extends State<StudentListViewScreen> {
                               .toString()
                               .replaceAll('_', ' '),
                           size: 13.0,
-                          color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                         ),
                         HeadingText(
                           alignment: Alignment.centerLeft,
@@ -99,7 +101,10 @@ class _StudentListViewScreenState extends State<StudentListViewScreen> {
                                   .toString()
                                   .replaceAll('_', ' '),
                           size: 13.0,
-                          color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                         ),
                       ],
                     ),

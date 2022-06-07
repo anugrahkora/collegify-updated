@@ -1,4 +1,3 @@
-
 import 'package:collegify/database/databaseService.dart';
 import 'package:collegify/shared/components/constants.dart';
 import 'package:collegify/shared/components/dropDownList.dart';
@@ -7,10 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class OpenAddNewCourseDialog extends StatefulWidget {
-  
-
-  const OpenAddNewCourseDialog({Key key, })
-      : super(key: key);
+  const OpenAddNewCourseDialog({
+    Key key,
+  }) : super(key: key);
   @override
   _OpenAddNewCourseDialogState createState() => _OpenAddNewCourseDialogState();
 }
@@ -27,12 +25,13 @@ class _OpenAddNewCourseDialogState extends State<OpenAddNewCourseDialog> {
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
+          backgroundColor: Theme.of(context).primaryColor,
           title: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: HeadingText(
               text: collegeName,
               size: 20.0,
-              color: Colors.black54,
+              color: Theme.of(context).primaryTextTheme.bodyText1.color,
             ),
           ),
           content: Container(
@@ -45,7 +44,7 @@ class _OpenAddNewCourseDialogState extends State<OpenAddNewCourseDialog> {
                 children: <Widget>[
                   DropDownListForDepartmentName(
                     // hintText: 'View Departments',
-                  
+
                     onpressed: (val) {
                       setState(() {
                         _selectedDepartmentName = val;
@@ -55,7 +54,6 @@ class _OpenAddNewCourseDialogState extends State<OpenAddNewCourseDialog> {
                   ),
                   DropDownListForCourseNames(
                     hintText: "View Courses",
-                  
                     departmentName: _selectedDepartmentName,
                     selectedCourseName: _selectedCourseName,
                     onpressed: (val) {
@@ -88,7 +86,12 @@ class _OpenAddNewCourseDialogState extends State<OpenAddNewCourseDialog> {
                     size: 24,
                   )
                 : IconButton(
-                    icon: Icon(Icons.done),
+                    icon: Icon(
+                      Icons.done,
+                      color: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .selectedItemColor,
+                    ),
                     onPressed: () async {
                       if (_formkey.currentState.validate() &&
                           _selectedDepartmentName != null &&
@@ -98,7 +101,6 @@ class _OpenAddNewCourseDialogState extends State<OpenAddNewCourseDialog> {
                           _loading = !_loading;
                         });
                         dynamic result = await _databaseService.addNewCourse(
-                           
                             _selectedDepartmentName,
                             _newCourseName.toString().replaceAll(' ', '_'));
 
@@ -106,10 +108,9 @@ class _OpenAddNewCourseDialogState extends State<OpenAddNewCourseDialog> {
                           Fluttertoast.showToast(msg: result.toString());
                         else {
                           Fluttertoast.showToast(msg: "Done");
- setState(() {
-                          _loading = !_loading;
-                        });
-                          
+                          setState(() {
+                            _loading = !_loading;
+                          });
                         }
                       }
                     })

@@ -10,7 +10,6 @@ import 'package:collegify/Screens/admin_screen/popups/feePopup.dart';
 import 'package:collegify/Screens/admin_screen/popups/semesterPopup.dart';
 import 'package:collegify/shared/components/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class BuildItems extends StatelessWidget {
   const BuildItems({
@@ -189,25 +188,25 @@ class BuildItems extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(
-          height: size.height * 0.2,
-          width: size.width * 0.9,
-          child: DecoratedContainer(
-            widthfactor: 0.4,
-            child: HeadingText(
-              text: 'Add Admin',
-              size: 15.0,
-              color: Theme.of(context).primaryTextTheme.bodyText1.color,
-            ),
-            onpressed: () {
-              Navigator.of(context, rootNavigator: true).push(
-                MaterialPageRoute(
-                  builder: (context) => AdminRegisterScreen(),
-                ),
-              );
-            },
-          ),
-        ),
+        // SizedBox(
+        //   height: size.height * 0.2,
+        //   width: size.width * 0.9,
+        //   child: DecoratedContainer(
+        //     widthfactor: 0.4,
+        //     child: HeadingText(
+        //       text: 'Add Admin',
+        //       size: 15.0,
+        //       color: Theme.of(context).primaryTextTheme.bodyText1.color,
+        //     ),
+        //     onpressed: () {
+        //       Navigator.of(context, rootNavigator: true).push(
+        //         MaterialPageRoute(
+        //           builder: (context) => AdminRegisterScreen(),
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // ),
       ],
     );
   }

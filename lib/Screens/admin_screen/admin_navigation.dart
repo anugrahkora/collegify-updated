@@ -1,11 +1,8 @@
-
 import 'package:collegify/models/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-import '../../shared/components/constants.dart';
 import 'admin_home.dart';
 import 'admin_verify_teacher.dart';
 
@@ -14,8 +11,7 @@ PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 class AdminNavigationScreen extends StatefulWidget {
   final AdminModel adminModel;
 
-  const AdminNavigationScreen({Key key, this.adminModel})
-      : super(key: key);
+  const AdminNavigationScreen({Key key, this.adminModel}) : super(key: key);
   @override
   _AdminigationScreenState createState() => _AdminigationScreenState();
 }
@@ -26,14 +22,22 @@ class _AdminigationScreenState extends State<AdminNavigationScreen> {
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.add),
         title: ("Add Institutions"),
-        activeColor: CupertinoColors.darkBackgroundGray,
-        inactiveColor: CupertinoColors.systemGrey,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.check_mark_circled),
         title: ('Profile'),
-        activeColor: CupertinoColors.darkBackgroundGray,
-        inactiveColor: CupertinoColors.systemGrey,
+        activeColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+        inactiveColor:
+            Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+        activeContentColor:
+            Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
       ),
     ];
   }
@@ -44,7 +48,7 @@ class _AdminigationScreenState extends State<AdminNavigationScreen> {
         adminModel: widget.adminModel,
       ),
       AdminVerifyTeacherScreen(
-       adminModel: widget.adminModel,
+        adminModel: widget.adminModel,
       ),
     ];
   }
@@ -63,10 +67,7 @@ class _AdminigationScreenState extends State<AdminNavigationScreen> {
       stateManagement: true,
       hideNavigationBarWhenKeyboardShows:
           false, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument.
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        colorBehindNavBar: Colors.white,
-      ),
+
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
       itemAnimationProperties: ItemAnimationProperties(

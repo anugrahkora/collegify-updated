@@ -4,7 +4,6 @@ import 'package:collegify/models/user_model.dart';
 import 'package:collegify/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class AssignMarks extends StatefulWidget {
   final TeacherModel teacherModel;

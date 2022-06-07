@@ -3,7 +3,6 @@ import 'package:collegify/Screens/teacher_screen/teacher_home/editStudentScreen/
 import 'package:collegify/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 import '../../../../database/databaseService.dart';
 import '../../../../shared/components/constants.dart';

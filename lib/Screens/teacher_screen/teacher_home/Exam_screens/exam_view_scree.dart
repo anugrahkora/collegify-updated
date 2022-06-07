@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collegify/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import '../../../../database/databaseService.dart';
@@ -273,7 +272,7 @@ class _OpenPopupDialogueState extends State<OpenPopupDialogue> {
       title: HeadingText(
         text: 'Exam Details',
         size: 20.0,
-        color: Colors.black54,
+        color: Theme.of(context).primaryTextTheme.bodyText1.color,
       ),
       backgroundColor: Theme.of(context).primaryColorLight,
       content: Container(
@@ -318,7 +317,15 @@ class _OpenPopupDialogueState extends State<OpenPopupDialogue> {
                   type: DateTimePickerType.time,
 
                   //initialValue: _initialValue,
-                  icon: Icon(Icons.access_time),
+                  icon: Icon(
+                    Icons.access_time,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .selectedItemColor,
+                  ),
+                  style: TextStyle(
+                    color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                  ),
                   timeLabelText: "From",
                   use24HourFormat: true,
                   //locale: Locale('en', 'US'),
@@ -330,7 +337,16 @@ class _OpenPopupDialogueState extends State<OpenPopupDialogue> {
                   type: DateTimePickerType.time,
 
                   //initialValue: _initialValue,
-                  icon: Icon(Icons.access_time),
+                  icon: Icon(
+                    Icons.access_time,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .selectedItemColor,
+                  ),
+
+                  style: TextStyle(
+                    color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                  ),
                   timeLabelText: "To",
                   use24HourFormat: true,
                   //locale: Locale('en', 'US'),
@@ -356,6 +372,9 @@ class _OpenPopupDialogueState extends State<OpenPopupDialogue> {
             : IconButton(
                 icon: Icon(
                   Icons.done,
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .selectedItemColor,
                 ),
                 onPressed: () async {
                   if (_formkey.currentState.validate() &&

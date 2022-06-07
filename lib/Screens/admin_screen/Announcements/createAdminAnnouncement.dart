@@ -5,13 +5,13 @@ import 'package:collegify/shared/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class CreateAdminAnnouncement extends StatefulWidget {
   final AdminModel adminModel;
 
   const CreateAdminAnnouncement({
-    Key key,@required this.adminModel,
+    Key key,
+    @required this.adminModel,
   }) : super(key: key);
   @override
   _CreateAdminAnnouncementState createState() =>
@@ -30,15 +30,12 @@ class _CreateAdminAnnouncementState extends State<CreateAdminAnnouncement> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black54),
-          centerTitle: true,
-          backgroundColor: Colors.white,
           title: HeadingText(
-            alignment: Alignment.centerLeft,
-            text: 'Annoucement',
-            color: Theme.of(context).primaryTextTheme.bodyText1.color,
-            size: 17.0,
-          )),
+        alignment: Alignment.centerLeft,
+        text: 'Annoucement',
+        color: Theme.of(context).primaryTextTheme.bodyText1.color,
+        size: 17.0,
+      )),
       // backgroundColor: HexColor(appPrimaryColour),
       body: SafeArea(
         child: Center(
@@ -59,7 +56,7 @@ class _CreateAdminAnnouncementState extends State<CreateAdminAnnouncement> {
                           blurRadius: 6.0,
                           spreadRadius: 3.0),
                     ],
-                    color: Colors.white,
+                    color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: SingleChildScrollView(
@@ -72,13 +69,23 @@ class _CreateAdminAnnouncementState extends State<CreateAdminAnnouncement> {
                                 val.isEmpty ? '* Mandatory' : null,
                             keyboardType: TextInputType.multiline,
                             maxLines: 5,
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyText1
+                                  .color,
+                            ),
                             onChanged: (val) {
                               _title = val;
                             },
                             decoration: InputDecoration(
                               hintStyle: GoogleFonts.montserrat(
-                                  color: Colors.black54, fontSize: 16),
+                                  color: Theme.of(context)
+                                      .primaryTextTheme
+                                      .bodyText1
+                                      .color,
+                                  fontSize: 16),
                               hintText: 'Subject',
                               border: InputBorder.none,
                             ),
@@ -88,12 +95,22 @@ class _CreateAdminAnnouncementState extends State<CreateAdminAnnouncement> {
                                 val.isEmpty ? '* Mandatory' : null,
                             keyboardType: TextInputType.multiline,
                             maxLines: 30,
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyText1
+                                  .color,
+                            ),
                             onChanged: (val) {
                               _body = val;
                             },
                             decoration: InputDecoration(
                               hintStyle: GoogleFonts.montserrat(
-                                  color: Colors.black54, fontSize: 16),
+                                  color: Theme.of(context)
+                                      .primaryTextTheme
+                                      .bodyText1
+                                      .color,
+                                  fontSize: 16),
                               hintText: 'Body',
                               border: InputBorder.none,
                             ),

@@ -1,4 +1,3 @@
-
 import 'package:collegify/database/databaseService.dart';
 import 'package:collegify/shared/components/constants.dart';
 import 'package:collegify/shared/components/dropDownList.dart';
@@ -28,12 +27,13 @@ class _OpenAddNewDepartmentDialogState
     return Center(
       child: SingleChildScrollView(
         child: AlertDialog(
+          backgroundColor: Theme.of(context).primaryColor,
           title: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: HeadingText(
               text: collegeName,
               size: 15.0,
-              color: Colors.black54,
+              color: Theme.of(context).primaryTextTheme.bodyText1.color,
             ),
           ),
           content: Container(
@@ -54,7 +54,6 @@ class _OpenAddNewDepartmentDialogState
                   ),
                   RoundedInputField(
                     hintText: 'New Department Name',
-                    color: Colors.white,
                     onChanged: (val) {
                       setState(() {
                         _newDepartmentName = val.replaceAll(' ', '_');
@@ -77,7 +76,12 @@ class _OpenAddNewDepartmentDialogState
                     size: 24,
                   )
                 : IconButton(
-                    icon: Icon(Icons.done),
+                    icon: Icon(Icons.done,
+                    
+                      color: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .selectedItemColor,
+                    ),
                     onPressed: () async {
                       if (_formkey.currentState.validate() &&
                           _newDepartmentName != null &&
@@ -94,8 +98,8 @@ class _OpenAddNewDepartmentDialogState
                         else {
                           Fluttertoast.showToast(msg: "Done");
                           setState(() {
-                          _loading = !_loading;
-                        });
+                            _loading = !_loading;
+                          });
                         }
                       }
                     })

@@ -216,7 +216,7 @@ class _TeacherRegisterScreenState extends State<TeacherRegisterScreen> {
         });
         try {
           await _authService.teacherregisterWithEmailpasswd(
-              departmentName, name, email, password, 'teacher');
+              departmentName, name, email, password, 'notVerified');
         } on FirebaseAuthException catch (e) {
           setState(() {
             _message = e.message;

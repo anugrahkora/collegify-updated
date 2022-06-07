@@ -5,7 +5,6 @@ import 'package:collegify/shared/components/constants.dart';
 import 'package:collegify/shared/components/loadingWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class OpenAssignMarksPopup extends StatefulWidget {
   final TeacherModel teacherModel;

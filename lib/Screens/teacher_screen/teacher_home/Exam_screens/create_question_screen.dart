@@ -36,10 +36,6 @@ class _CreateExamsScreenState extends State<CreateExamsScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          iconTheme: IconThemeData(
-            color: Colors.black54, //change your color here
-          ),
-          backgroundColor: Colors.white,
           title: HeadingText(
             alignment: Alignment.centerLeft,
             text: widget.examName,
@@ -101,7 +97,10 @@ class _CreateExamsScreenState extends State<CreateExamsScreen> {
                             child: HeadingText(
                               text: '${i + 1}.',
                               size: 17.0,
-                              color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyText1
+                                  .color,
                             ),
                           ),
                           Container(
@@ -110,7 +109,10 @@ class _CreateExamsScreenState extends State<CreateExamsScreen> {
                                   ' ' +
                                   documentSnapshot.data()['Mark'],
                               size: 13.0,
-                              color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                              color: Theme.of(context)
+                                  .primaryTextTheme
+                                  .bodyText1
+                                  .color,
                             ),
                           ),
                         ],
@@ -120,7 +122,10 @@ class _CreateExamsScreenState extends State<CreateExamsScreen> {
                           alignment: Alignment.centerLeft,
                           text: documentSnapshot.data()['Question'],
                           size: 15.0,
-                          color: Theme.of(context).primaryTextTheme.bodyText1.color,
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .bodyText1
+                              .color,
                         ),
                       ),
                       SizedBox(
@@ -237,7 +242,7 @@ class _OpenPopupDialogueState extends State<OpenPopupDialogue> {
       title: HeadingText(
         text: 'Add Question',
         size: 20.0,
-        color: Colors.black54,
+        color: Theme.of(context).primaryTextTheme.bodyText1.color,
       ),
       backgroundColor: Theme.of(context).primaryColorLight,
       content: Container(
