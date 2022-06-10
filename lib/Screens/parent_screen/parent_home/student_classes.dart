@@ -283,8 +283,6 @@ class _StudentAttendanceStatusState extends State<StudentAttendanceStatus> {
   StreamBuilder<QuerySnapshot> buildStreamBuilder() {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
-          .collection(college)
-          .doc('announcement')
           .collection('adminAnnouncement')
           .snapshots(),
       builder: (context, snapshot) {
@@ -325,7 +323,11 @@ class _StudentAttendanceStatusState extends State<StudentAttendanceStatus> {
                                   .primaryTextTheme
                                   .bodyText1
                                   .color,
-                              text: snapshot.data.docs[index]['Date'],
+                              text: snapshot.data.docs[index]['Date']
+                                      .toString()
+                                      .substring(0, 10)
+                                      .replaceAll('-', '/') ??
+                                  '---',
                               size: 13,
                             ),
                           ],
